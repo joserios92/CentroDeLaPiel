@@ -7,9 +7,12 @@ package LogicaDeNegocio;
 
 
 public class Turno {
-    Agenda unaAgenda = new Agenda();
-    Paciente unPaciente = new Paciente();
-    EstadoTurno unEstadoTurno = new EstadoTurno();
+    
+    private PlantillaTurno unaPlantilla;
+    private Paciente unPaciente;
+    private EstadoTurno unEstadoTurno;
+    private int idTurno;
     private String fecha;
     private int hora;
+    
 }

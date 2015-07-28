@@ -1,19 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package LogicaDeNegocio;
 
 import java.util.LinkedList;
 
-/**
- *
- * @author Ruso
- */
+
 public class Agenda {
-    Profesional unProfesional = new Profesional();
-    LinkedList<PlantillaTurno> PlantillaTurnos = new LinkedList();
+    private Profesional unProfesional;
+    private LinkedList<PlantillaTurno> PlantillaTurnos = new LinkedList();
+    private int idAgenda;
     private String fechaInicio;
     private String fechaFin;
     private String fechaGenerada;
@@ -22,11 +16,20 @@ public class Agenda {
     public Agenda() {
     }
 
-    public Agenda(String fechaInicio, String fechaFin, String fechaGenerada, String fechaAplicada) {
+    public Agenda(int idAgenda, String fechaInicio, String fechaFin, String fechaGenerada, String fechaAplicada) {
+        this.idAgenda = idAgenda;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.fechaGenerada = fechaGenerada;
         this.fechaAplicada = fechaAplicada;
+    }
+
+    public int getIdAgenda() {
+        return idAgenda;
+    }
+
+    public void setIdAgenda(int idAgenda) {
+        this.idAgenda = idAgenda;
     }
 
     public Profesional getUnProfesional() {

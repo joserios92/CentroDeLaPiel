@@ -8,6 +8,30 @@ package LogicaDeNegocio;
 import java.util.LinkedList;
 
 public class Profesional {
-    LinkedList<Agenda> Agendas = new LinkedList();
+    private LinkedList<Agenda> agendas = new LinkedList();
     private int matricula;
+
+    public Profesional() {
+    }
+
+    public Profesional(int matricula) {
+        this.matricula = matricula;
+    }
+
+    public LinkedList<Agenda> getAgendas() {
+        return agendas;
+    }
+
+    public void setAgendas(LinkedList<Agenda> agendas) {
+        this.agendas = agendas;
+    }
+
+    public int getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
+    }
+    
 }
