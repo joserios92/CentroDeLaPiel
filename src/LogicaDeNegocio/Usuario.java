@@ -2,31 +2,43 @@
 package LogicaDeNegocio;
 
 public class Usuario {
-    private String nombre;
-    private String contrasenia;
-
+    
+    private String user;
+    
+    private String pass;
+    
+    private TipoUsuario tipo;
     public Usuario() {
     }
 
-    public Usuario(String nombre, String contrasenia) {
-        this.nombre = nombre;
-        this.contrasenia = contrasenia;
+    public Usuario(String user, String pass, TipoUsuario tipo) {
+        this.user = user;
+        this.pass = pass;
+        this.tipo = tipo;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getUser() {
+        return user;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getPass() {
+        return pass;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public TipoUsuario getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoUsuario tipo) {
+        this.tipo = tipo;
     }
     
 }
