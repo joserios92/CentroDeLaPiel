@@ -2,10 +2,15 @@
 package LogicaDeNegocio;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+
 @Entity
 public class TipoDocumento implements Serializable{
+    @Id
     private int idTipo;
+    @Basic
     private String nombreTipo;
 
     public TipoDocumento() {

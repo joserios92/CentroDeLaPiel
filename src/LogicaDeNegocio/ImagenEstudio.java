@@ -2,14 +2,22 @@
 package LogicaDeNegocio;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class ImagenEstudio implements Serializable{
-    private Estudio unEstudio;
+    @Id
     private int idImagenEstudio;
+    @Basic
     private String comentario;
+    @Basic
     private String imagen;
+    @OneToMany
+    private Estudio unEstudio;
+    
 
     public ImagenEstudio() {
     }

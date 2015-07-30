@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 @Entity
 public class PlantillaTurno implements Serializable{
@@ -18,9 +19,10 @@ public class PlantillaTurno implements Serializable{
     private int hora;
     @Basic
     private int duracion;
-    
-    private LinkedList<Turno> turnos = new LinkedList();
     //private String prestacion;
+    @ManyToOne
+    private LinkedList<Turno> turnos = new LinkedList();
+    
 
     public PlantillaTurno() {
     }

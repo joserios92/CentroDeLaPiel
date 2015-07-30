@@ -3,13 +3,17 @@ package LogicaDeNegocio;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class TipoEstudio implements Serializable{
-    
+    @Id
     private int idTipoEstudio;
+    @Basic
     private String nombreEstudio;
+    @Basic
     private int codigoNomenclador;
 
     public TipoEstudio() {

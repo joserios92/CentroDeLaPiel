@@ -2,14 +2,19 @@
 package LogicaDeNegocio;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 @Entity
 public class Usuario implements Serializable{
-    
+    @Id
+    private int idUsuario;
+    @Basic
     private String user;
-    
+    @Basic
     private String pass;
-    
+    @OneToOne
     private TipoUsuario tipo;
     public Usuario() {
     }

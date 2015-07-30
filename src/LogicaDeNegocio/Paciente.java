@@ -3,13 +3,20 @@ package LogicaDeNegocio;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Paciente implements Serializable{
+public class Paciente extends Persona implements Serializable{
     
-    private LinkedList<ObraSocial> ObrasSociales  = new LinkedList();
+    @Basic
     private int nroFicha;
+    @ManyToMany
+    private LinkedList<ObraSocial> ObrasSociales  = new LinkedList();
+    @OneToOne
     private Persona unaPersona;
 
     public Paciente() {

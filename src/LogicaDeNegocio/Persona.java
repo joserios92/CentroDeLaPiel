@@ -2,27 +2,47 @@
 package LogicaDeNegocio;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 @Entity
 public class Persona implements Serializable{
+    @Id
     private int idPersona;
+    @Basic
     private String nombre;
+    @Basic
     private String apellido;
+    @Basic
     private String fechaNac;
+    @Basic
     private String sexo;
+    @Basic
     private long telefono1;
+    @Basic
     private long telefono2;
+    @Basic
     private long documento;
-    private TipoDocumento unTipoDocumento;
-    private Localidad unaLocalidad;
+    @Basic
     private String calle;
+    @Basic
     private int altura;
+    @Basic
     private int piso;
+    @Basic
     private String depto;
+    @Basic
     private String torre;
+    @Basic
     private String barrio;
+    @Basic
     private int codigoPostal;
-
+    @OneToOne
+    private TipoDocumento unTipoDocumento;
+    @OneToOne
+    private Localidad unaLocalidad;
+    
     public Persona() {
     }
 
