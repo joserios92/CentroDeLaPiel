@@ -8,10 +8,15 @@ package LogicaDeNegocio;
 import java.io.Serializable;
 import java.util.LinkedList;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 @Entity
 public class Profesional implements Serializable{
-    private LinkedList<Agenda> agendas = new LinkedList();
+    @Id
     private int matricula;
+    @ManyToOne
+    private LinkedList<Agenda> agendas = new LinkedList();
+    
 
     public Profesional() {
     }

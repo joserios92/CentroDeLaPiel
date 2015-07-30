@@ -2,15 +2,24 @@ package LogicaDeNegocio;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 @Entity
 public class PlantillaTurno implements Serializable{
-    private LinkedList<Turno> turnos = new LinkedList();
+    @Id
     private int idPlantilla;
+    @OneToMany
     private Agenda unaAgenda;
+    @Basic
     private int dia;
+    @Basic
     private int hora;
+    @Basic
     private int duracion;
+    
+    private LinkedList<Turno> turnos = new LinkedList();
     //private String prestacion;
 
     public PlantillaTurno() {
