@@ -64,9 +64,8 @@ public class ControladoraPersistencia {
     
        //              METODOS AGENDA
 
-    public Agenda crearAgenda(Agenda unAgenda) {
-        
-        return this.miAgendaJpa.crearAgenda(unAgenda);
+    public Agenda crearAgenda(Agenda unaAgenda) {
+        return this.miAgendaJpa.crearAgenda(unaAgenda);
     }
 
     public void editarAgenda(Agenda miAgenda){
@@ -152,9 +151,9 @@ public class ControladoraPersistencia {
     
     //              METODOS LOCALIDAD
 
-    public Localidad crearLocalidad() {
+    public Localidad crearLocalidad(Localidad unaLocalidad) {
         
-        return this.miLocalidadJpa.crearLocalidad(unLocalidad);
+        return this.miLocalidadJpa.crearLocalidad(unaLocalidad);
     }
 
     public void editarLocalidad(Localidad miLocalidad){
@@ -190,8 +189,8 @@ public class ControladoraPersistencia {
     public Agenda dameObraSocial(int id) {
         return this.miObraSocialJpa.dameObraSocial(id);
     }
-    public List<Agenda> dameObraSocials() {
-        return this.miObraSocialJpa.dameObraSocial();
+    public List<Agenda> dameObraSociales() {
+        return this.miObraSocialJpa.dameObraSociales();
     }
     
     //              METODOS PACIENTE    

@@ -17,12 +17,24 @@ public class Profesional extends Persona implements Serializable{
     private int matricula;
     @ManyToOne
     private LinkedList<Agenda> agendas = new LinkedList();
-    
 
     public Profesional() {
     }
 
     public Profesional(int matricula) {
+        this.matricula = matricula;
+    }
+
+    public Profesional(int matricula, int idPersona, String nombre, String apellido, String fechaNac, String sexo, long telefono1, long telefono2, long documento, TipoDocumento unTipoDocumento, Localidad unaLocalidad, String calle, int altura, int piso, String depto, String torre, String barrio, int codigoPostal) {
+        super(idPersona, nombre, apellido, fechaNac, sexo, telefono1, telefono2, documento, unTipoDocumento, unaLocalidad, calle, altura, piso, depto, torre, barrio, codigoPostal);
+        this.matricula = matricula;
+    }
+
+    public int getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(int matricula) {
         this.matricula = matricula;
     }
 
@@ -34,12 +46,6 @@ public class Profesional extends Persona implements Serializable{
         this.agendas = agendas;
     }
 
-    public int getMatricula() {
-        return matricula;
-    }
+ 
 
-    public void setMatricula(int matricula) {
-        this.matricula = matricula;
-    }
-    
 }

@@ -16,23 +16,17 @@ public class Paciente extends Persona implements Serializable{
     private int nroFicha;
     @ManyToMany
     private LinkedList<ObraSocial> ObrasSociales  = new LinkedList();
-    @OneToOne
-    private Persona unaPersona;
 
     public Paciente() {
     }
 
-    public Paciente(int nroFicha, Persona unaPersona) {
+    public Paciente(int nroFicha) {
         this.nroFicha = nroFicha;
-        this.unaPersona = unaPersona;
     }
 
-    public LinkedList<ObraSocial> getObrasSociales() {
-        return ObrasSociales;
-    }
-
-    public void setObrasSociales(LinkedList<ObraSocial> ObrasSociales) {
-        this.ObrasSociales = ObrasSociales;
+    public Paciente(int nroFicha, int idPersona, String nombre, String apellido, String fechaNac, String sexo, long telefono1, long telefono2, long documento, TipoDocumento unTipoDocumento, Localidad unaLocalidad, String calle, int altura, int piso, String depto, String torre, String barrio, int codigoPostal) {
+        super(idPersona, nombre, apellido, fechaNac, sexo, telefono1, telefono2, documento, unTipoDocumento, unaLocalidad, calle, altura, piso, depto, torre, barrio, codigoPostal);
+        this.nroFicha = nroFicha;
     }
 
     public int getNroFicha() {
@@ -43,12 +37,14 @@ public class Paciente extends Persona implements Serializable{
         this.nroFicha = nroFicha;
     }
 
-    public Persona getUnaPersona() {
-        return unaPersona;
+    public LinkedList<ObraSocial> getObrasSociales() {
+        return ObrasSociales;
     }
 
-    public void setUnaPersona(Persona unaPersona) {
-        this.unaPersona = unaPersona;
+    public void setObrasSociales(LinkedList<ObraSocial> ObrasSociales) {
+        this.ObrasSociales = ObrasSociales;
     }
-   
+    
+
+    
 }

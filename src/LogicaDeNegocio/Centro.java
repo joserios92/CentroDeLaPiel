@@ -45,9 +45,9 @@ public class Centro {
     
     //              METODOS AGENDA
 
-    public Agenda crearAgenda(String apellido,String nombres,Localidad localidad,String domicilio,String email,String tel,String cel,String dni,String sexo,String fecha) {
-        
-        return this.miPersistencia.crearAgenda(unAgenda);
+    public Agenda crearAgenda(int idAgenda, String fechaInicio, String fechaFin, String fechaGenerada, String fechaAplicada) {
+        Agenda unaAgenda = new Agenda(idAgenda,fechaInicio,fechaFin,fechaGenerada,fechaAplicada);
+        return this.miPersistencia.crearAgenda(unaAgenda);
     }
 
     public void editarAgenda(Agenda miAgenda){
@@ -62,13 +62,13 @@ public class Centro {
         return this.miPersistencia.dameAgenda(id);
     }
     public List<Agenda> dameAgendas() {
-        return this.miPersistencia.dameAgenda();
+        return this.miPersistencia.dameAgendas();
     }
     
     //              METODOS ESTADOTURNO
 
-    public EstadoTurno crearEstadoTurno() {
-        
+    public EstadoTurno crearEstadoTurno(int idEstadoTurno, String nombreEstado) {
+        EstadoTurno unEstadoTurno = new EstadoTurno(idEstadoTurno,nombreEstado);
         return this.miPersistencia.crearEstadoTurno(unEstadoTurno);
     }
 
@@ -84,13 +84,13 @@ public class Centro {
         return this.miPersistencia.dameEstadoTurno(id);
     }
     public List<EstadoTurno> dameEstadoTurnos() {
-        return this.miPersistencia.dameEstadoTurno();
+        return this.miPersistencia.dameEstadoTurnos();
     }
     
     //              METODOS ESTUDIO
 
-    public Estudio crearEstudio() {
-        
+    public Estudio crearEstudio(Paciente unPaciente, int idEstudio, String comentario, String fecha) {
+        Estudio unEstudio = new Estudio(unPaciente,idEstudio,comentario,fecha);
         return this.miPersistencia.crearEstudio(unEstudio);
     }
 
@@ -106,13 +106,13 @@ public class Centro {
         return this.miPersistencia.dameEstudio(id);
     }
     public List<Estudio> dameEstudios() {
-        return this.miPersistencia.dameEstudio();
+        return this.miPersistencia.dameEstudios();
     }
     
     //              METODOS IMAGENESTUDIO
 
-    public ImagenEstudio crearImagenEstudio() {
-        
+    public ImagenEstudio crearImagenEstudio(Estudio unEstudio, int idImagenEstudio, String comentario, String imagen) {
+        ImagenEstudio unImagenEstudio = new ImagenEstudio(unEstudio,idImagenEstudio,comentario,imagen);
         return this.miPersistencia.crearImagenEstudio(unImagenEstudio);
     }
 
@@ -128,14 +128,14 @@ public class Centro {
         return this.miPersistencia.dameImagenEstudio(id);
     }
     public List<ImagenEstudio> dameImagenEstudios() {
-        return this.miPersistencia.dameImagenEstudio();
+        return this.miPersistencia.dameImagenEstudios();
     }
     
     //              METODOS LOCALIDAD
 
-    public Localidad crearLocalidad() {
-        
-        return this.miPersistencia.crearLocalidad(unLocalidad);
+    public Localidad crearLocalidad(int idLocalidad, String nombreLocalidad, Provincia unaProvincia) {
+        Localidad unaLocalidad = new Localidad(idLocalidad,nombreLocalidad,unaProvincia);
+        return this.miPersistencia.crearLocalidad(unaLocalidad);
     }
 
     public void editarLocalidad(Localidad miLocalidad){
@@ -155,9 +155,9 @@ public class Centro {
     
     //              METODOS OBRASOCIAL
 
-    public ObraSocial crearObraSocial() {
-        
-        return this.miPersistencia.crearObraSocial(unObraSocial);
+    public ObraSocial crearObraSocial(int idObraSocial, String nombreObraSocial) {
+        ObraSocial unaObraSocial = new ObraSocial(idObraSocial,nombreObraSocial);
+        return this.miPersistencia.crearObraSocial(unaObraSocial);
     }
 
     public void editarObraSocial(ObraSocial miObraSocial){
@@ -171,14 +171,14 @@ public class Centro {
     public Agenda dameObraSocial(int id) {
         return this.miPersistencia.dameObraSocial(id);
     }
-    public List<Agenda> dameObraSocials() {
-        return this.miPersistencia.dameObraSocial();
+    public List<Agenda> dameObraSociales() {
+        return this.miPersistencia.dameObraSociales();
     }
     
     //              METODOS PACIENTE    
 
-    public Paciente crearPaciente() {
-        
+    public Paciente crearPaciente(int nroFicha, Persona unaPersona) {
+        Paciente unPaciente = new Paciente(nroFicha,unaPersona.getIdPersona(),unaPersona.getNombre(),unaPersona.getApellido(),unaPersona.getFechaNac(),unaPersona.getSexo(),unaPersona.getTelefono1(),unaPersona.getTelefono2(),unaPersona.getDocumento(),unaPersona.getUnTipoDocumento(),unaPersona.getUnaLocalidad(),unaPersona.getCalle(),unaPersona.getAltura(),unaPersona.getPiso(),unaPersona.getDepto(),unaPersona.getTorre(),unaPersona.getBarrio(),unaPersona.getCodigoPostal());
         return this.miPersistencia.crearPaciente(unPaciente);
     }
 
@@ -194,13 +194,13 @@ public class Centro {
         return this.miPersistencia.damePaciente(id);
     }
     public List<Paciente> damePacientes() {
-        return this.miPersistencia.damePaciente();
+        return this.miPersistencia.damePacientes();
     }
     
     //              METODOS PAIS
 
-    public Pais crearPais() {
-        
+    public Pais crearPais(int idPais, String nombrePais) {
+        Pais unPais = new Pais(idPais,nombrePais);
         return this.miPersistencia.crearPais(unPais);
     }
 
@@ -216,14 +216,14 @@ public class Centro {
         return this.miPersistencia.damePais(id);
     }
     public List<Pais> damePaises() {
-        return this.miPersistencia.damePais();
+        return this.miPersistencia.damePaises();
     }
     
     //              METODOS PERSONA
 
-    public Persona crearPersona() {
-        
-        return this.miPersistencia.crearPersona(unPersona);
+    public Persona crearPersona(int idPersona, String nombre, String apellido, String fechaNac, String sexo, long telefono1, long telefono2, long documento, TipoDocumento unTipoDocumento, Localidad unaLocalidad, String calle, int altura, int piso, String depto, String torre, String barrio, int codigoPostal) {
+        Persona unaPersona = new Persona(idPersona,nombre,apellido,fechaNac,sexo,telefono1,telefono2,documento,unTipoDocumento,unaLocalidad,calle,altura,piso,depto,torre,barrio,codigoPostal);
+        return this.miPersistencia.crearPersona(unaPersona);
     }
 
     public void editarPersona(Persona miPersona){
@@ -243,9 +243,9 @@ public class Centro {
     
     //              METODOS PLANTILLATURNO
 
-    public PlantillaTurno crearPlantillaTurno() {
-        
-        return this.miPersistencia.crearPlantillaTurno(unPlantillaTurno);
+    public PlantillaTurno crearPlantillaTurno(int idPlantilla, Agenda unaAgenda, int dia, int hora, int duracion) {
+        PlantillaTurno unaPlantillaTurno = new PlantillaTurno(idPlantilla,unaAgenda,dia,hora,duracion);
+        return this.miPersistencia.crearPlantillaTurno(unaPlantillaTurno);
     }
 
     public void editarPlantillaTurno(PlantillaTurno miPlantillaTurno){
@@ -265,8 +265,8 @@ public class Centro {
     
     //              METODOS PROFESIONAL
 
-    public Profesional crearProfesional() {
-        
+    public Profesional crearProfesional(int matricula,Persona unaPersona) {
+        Profesional unProfesional = new Profesional(matricula,unaPersona.getIdPersona(),unaPersona.getNombre(),unaPersona.getApellido(),unaPersona.getFechaNac(),unaPersona.getSexo(),unaPersona.getTelefono1(),unaPersona.getTelefono2(),unaPersona.getDocumento(),unaPersona.getUnTipoDocumento(),unaPersona.getUnaLocalidad(),unaPersona.getCalle(),unaPersona.getAltura(),unaPersona.getPiso(),unaPersona.getDepto(),unaPersona.getTorre(),unaPersona.getBarrio(),unaPersona.getCodigoPostal());
         return this.miPersistencia.crearProfesional(unProfesional);
     }
 
@@ -287,9 +287,9 @@ public class Centro {
     
     //              METODOS PROVINCIA
 
-    public Provincia crearProvincia() {
-        
-        return this.miPersistencia.crearProvincia(unProvincia);
+    public Provincia crearProvincia(int idProvincia, String nombreProvincia) {
+        Provincia unaProvincia = new Provincia(idProvincia, nombreProvincia);
+        return this.miPersistencia.crearProvincia(unaProvincia);
     }
 
     public void editarProvincia(Provincia miProvincia){
@@ -309,8 +309,8 @@ public class Centro {
     
     //              METODOS TIPODOCUMENTO
 
-    public TipoDocumento crearTipoDocumento(String apellido,String nombres,Localidad localidad,String domicilio,String email,String tel,String cel,String dni,String sexo,String fecha) {
-        
+    public TipoDocumento crearTipoDocumento(int idTipo, String nombreTipo) {
+        TipoDocumento unTipoDocumento = new TipoDocumento(idTipo,nombreTipo);
         return this.miPersistencia.crearTipoDocumento(unTipoDocumento);
     }
 
@@ -326,13 +326,13 @@ public class Centro {
         return this.miPersistencia.dameTipoDocumento(id);
     }
     public List<TipoDocumento> dameTipoDocumentos() {
-        return this.miPersistencia.dameTipoDocumento();
+        return this.miPersistencia.dameTipoDocumentos();
     }
     
      //              METODOS TIPOESTUDIO
 
-    public TipoEstudio crearTipoEstudio() {
-        
+    public TipoEstudio crearTipoEstudio(int idTipoEstudio, String nombreEstudio, int codigoNomenclador) {
+        TipoEstudio unTipoEstudio = new TipoEstudio(idTipoEstudio,nombreEstudio,codigoNomenclador);
         return this.miPersistencia.crearTipoEstudio(unTipoEstudio);
     }
 
@@ -352,8 +352,8 @@ public class Centro {
     }
      //              METODOS TURNO
 
-    public Turno crearTurno() {
-        
+    public Turno crearTurno(int idTurno, String fecha, int hora, PlantillaTurno unaPlantilla, Paciente unPaciente, EstadoTurno unEstadoTurno) {
+        Turno unTurno = new Turno(idTurno,fecha,hora,unaPlantilla,unPaciente,unEstadoTurno);
         return this.miPersistencia.crearTurno(unTurno);
     }
 
@@ -373,16 +373,16 @@ public class Centro {
     }
     //              METODOS USUARIOS
 
-    public void crearUsuario(String user,String pass,TipoUsuario tipo) throws Exception {
+    public void crearUsuario(String user,String pass,TipoUsuario tipo){
         Usuario miUsuario = new Usuario(user,pass,tipo);
         this.miPersistencia.crearUsuario(miUsuario);
     }
 
-    public void editarUsuario(Usuario miUsuario) throws Exception {
+    public void editarUsuario(Usuario miUsuario){
         this.miPersistencia.editarUsuario(miUsuario);
     }
 
-    public void eliminarUsuario(String id) throws NonexistentEntityException{
+    public void eliminarUsuario(String id){
         this.miPersistencia.eliminarUsuario(id);
     }
 
@@ -400,11 +400,11 @@ public class Centro {
         this.miPersistencia.crearTipoUsuario(miTipoUsuario);
     }
 
-    public void editarTipoUsuario(TipoUsuario miTipoUsuario) throws Exception {
+    public void editarTipoUsuario(TipoUsuario miTipoUsuario){
         this.miPersistencia.editarTipoUsuario(miTipoUsuario);
     }
 
-    public void eliminarTipoUsuario(String id) throws NonexistentEntityException{
+    public void eliminarTipoUsuario(String id){
         this.miPersistencia.eliminarTipoUsuario(id);
     }
 
