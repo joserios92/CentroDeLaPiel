@@ -160,23 +160,23 @@ public class Login extends javax.swing.JFrame {
         ventana=miControl.validarUsuario(user,pass);
         if (ventana != null) {
         if (ventana=="Secretario") {
-            Secretario miEsc = new Secretario();
-            miEsc.setVisible(true);
-            miEsc.setTitle("Sistema Cokifimi - Secretario");
-            miEsc.setSize(1366,730);
-            miEsc.setLocationRelativeTo(null);
+            MenuProfesional unP = new MenuProfesional();
+            unP.setVisible(true);
+            unP.setTitle("Sistema - Doctora");
+            unP.setSize(1366,730);
+            unP.setLocationRelativeTo(null);
             this.dispose();
             
         }else{
             if (ventana=="Abogado") {
-                Secundario miEsc = new Secundario();
+                MenuPrincipal miEsc = new MenuPrincipal();
                 miEsc.setVisible(true);
                 miEsc.setTitle("Sistema Cokifimi - Secundario");
                 miEsc.setSize(1366,730);
                 miEsc.setLocationRelativeTo(null);
             this.dispose();
             }else{
-                if (ventana=="Administrador") {
+                /*if (ventana=="Administrador") {
                     Administrador miAd = new Administrador();
                     miAd.setVisible(true);
                     miAd.setTitle("Sistema Cokifimi - Administrador");
@@ -184,7 +184,7 @@ public class Login extends javax.swing.JFrame {
                     miAd.setLocationRelativeTo(null);
                     
                     
-                }
+                }*/
             }
         }
         }else{
