@@ -5,9 +5,11 @@
  */
 package LogicaDeNegocio;
 
+import java.io.Serializable;
 import java.util.LinkedList;
-
-public class Profesional {
+import javax.persistence.Entity;
+@Entity
+public class Profesional implements Serializable{
     private LinkedList<Agenda> agendas = new LinkedList();
     private int matricula;
 

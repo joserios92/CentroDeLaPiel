@@ -1,7 +1,10 @@
 
 package LogicaDeNegocio;
 
-public class TipoDocumento {
+import java.io.Serializable;
+import javax.persistence.Entity;
+@Entity
+public class TipoDocumento implements Serializable{
     private int idTipo;
     private String nombreTipo;
 

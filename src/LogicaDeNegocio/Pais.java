@@ -1,8 +1,11 @@
 
 package LogicaDeNegocio;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
 
-public class Pais {
+@Entity
+public class Pais implements Serializable{
     private int idPais;
     private String nombrePais;
 

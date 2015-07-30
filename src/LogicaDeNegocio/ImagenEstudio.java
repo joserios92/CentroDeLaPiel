@@ -1,8 +1,11 @@
 
 package LogicaDeNegocio;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
 
-public class ImagenEstudio {
+@Entity
+public class ImagenEstudio implements Serializable{
     private Estudio unEstudio;
     private int idImagenEstudio;
     private String comentario;

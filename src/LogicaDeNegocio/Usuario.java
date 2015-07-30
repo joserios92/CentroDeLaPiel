@@ -1,7 +1,10 @@
 
 package LogicaDeNegocio;
 
-public class Usuario {
+import java.io.Serializable;
+import javax.persistence.Entity;
+@Entity
+public class Usuario implements Serializable{
     
     private String user;
     

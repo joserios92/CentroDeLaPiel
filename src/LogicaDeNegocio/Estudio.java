@@ -1,10 +1,12 @@
 
 package LogicaDeNegocio;
 
+import java.io.Serializable;
 import java.util.LinkedList;
+import javax.persistence.Entity;
 
-
-public class Estudio {
+@Entity
+public class Estudio implements Serializable{
     private Paciente unPaciente;
     private TipoEstudio unTipoEstudio;
     private LinkedList<ImagenEstudio> imagenEstudios = new LinkedList();

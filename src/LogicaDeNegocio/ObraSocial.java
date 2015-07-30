@@ -1,10 +1,12 @@
 
 package LogicaDeNegocio;
 
+import java.io.Serializable;
 import java.util.LinkedList;
+import javax.persistence.Entity;
 
-
-public class ObraSocial {
+@Entity
+public class ObraSocial implements Serializable{
     private LinkedList<Paciente> Pacientes = new LinkedList();
     private int idObraSocial;
     private String nombreObraSocial;

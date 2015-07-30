@@ -1,10 +1,12 @@
 
 package LogicaDeNegocio;
 
+import java.io.Serializable;
 import java.util.LinkedList;
+import javax.persistence.Entity;
 
-
-public class Agenda {
+@Entity
+public class Agenda implements Serializable{
     private Profesional unProfesional;
     private LinkedList<PlantillaTurno> PlantillaTurnos = new LinkedList();
     private int idAgenda;

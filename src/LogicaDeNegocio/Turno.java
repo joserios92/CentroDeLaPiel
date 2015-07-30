@@ -5,8 +5,11 @@
  */
 package LogicaDeNegocio;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
 
-public class Turno {
+@Entity
+public class Turno implements Serializable{
     
     private PlantillaTurno unaPlantilla;
     private Paciente unPaciente;

@@ -5,11 +5,10 @@
  */
 package LogicaDeNegocio;
 
-/**
- *
- * @author Ruso
- */
-public class Provincia {
+import java.io.Serializable;
+import javax.persistence.Entity;
+@Entity
+public class Provincia implements Serializable{
     private int idProvincia;
     private String nombreProvincia;
     private Pais unPais;

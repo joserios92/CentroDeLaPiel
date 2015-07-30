@@ -1,8 +1,11 @@
 
 package LogicaDeNegocio;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
 
-public class Localidad {
+@Entity
+public class Localidad implements Serializable{
     private int idLocalidad;
     private String nombreLocalidad;
     private Provincia unaProvincia;

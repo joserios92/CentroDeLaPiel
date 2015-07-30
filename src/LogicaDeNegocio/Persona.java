@@ -1,7 +1,10 @@
 
 package LogicaDeNegocio;
 
-public class Persona {
+import java.io.Serializable;
+import javax.persistence.Entity;
+@Entity
+public class Persona implements Serializable{
     private int idPersona;
     private String nombre;
     private String apellido;
