@@ -192,8 +192,8 @@ public class ControladoraVisual {
     }
     //              METODOS PAIS
 
-    public Pais crearPais(int idPais, String nombrePais) throws Exception {
-        return this.miCentro.crearPais(idPais,nombrePais);
+    public Pais crearPais(String nombrePais) throws Exception {
+        return this.miCentro.crearPais(nombrePais);
     }
 
     public void editarPais(Pais miPais) throws Exception{
@@ -276,8 +276,8 @@ public class ControladoraVisual {
     
     //              METODOS PROVINCIA
 
-    public Provincia crearProvincia(int idProvincia, String nombreProvincia) throws Exception {
-        return this.miCentro.crearProvincia(idProvincia, nombreProvincia);
+    public Provincia crearProvincia(int idProvincia, String nombreProvincia, Pais unPais) throws Exception {
+        return this.miCentro.crearProvincia(idProvincia, nombreProvincia, unPais);
     }
 
     public void editarProvincia(Provincia miProvincia) throws Exception{

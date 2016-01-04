@@ -9,18 +9,21 @@ import javax.persistence.Id;
 
 @Entity
 public class Pais implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idPais;
     @Basic
     private String nombrePais;
-    @OneToMany
-    private List<Provincia> provincias = new LinkedList();
-    
+
     public Pais() {
     }
 
-    public Pais(int idPais, String nombrePais) {
-        this.idPais = idPais;
+    @Override
+    public String toString() {
+        return nombrePais;
+    }
+
+    
+    public Pais(String nombrePais) {
         this.nombrePais = nombrePais;
     }
 
@@ -38,14 +41,6 @@ public class Pais implements Serializable{
 
     public void setNombrePais(String nombrePais) {
         this.nombrePais = nombrePais;
-    }
-
-    public List<Provincia> getProvincias() {
-        return provincias;
-    }
-
-    public void setProvincias(List<Provincia> provincias) {
-        this.provincias = provincias;
     }
     
 }

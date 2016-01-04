@@ -15,7 +15,8 @@ public class Administrador extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        menuLocalidad = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -38,8 +39,17 @@ public class Administrador extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jMenu3.setText("Localidades");
+
+        menuLocalidad.setText("ABM Pais/Provincia/Localidad");
+        menuLocalidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLocalidadActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuLocalidad);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -74,11 +84,19 @@ public class Administrador extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BtnSalirActionPerformed
 
+    private void menuLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLocalidadActionPerformed
+        AltaLocalidad unaL = new AltaLocalidad();
+        unaL.setVisible(true);
+        unaL.setTitle("ABM Pais/Provincia/Localidad");
+        unaL.setLocationRelativeTo(null);
+    }//GEN-LAST:event_menuLocalidadActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnSalir;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem menuLocalidad;
     // End of variables declaration//GEN-END:variables
 }

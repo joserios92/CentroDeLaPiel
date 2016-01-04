@@ -303,12 +303,28 @@ public class Centro {
     
     //              METODOS PAIS
 
-    public Pais crearPais(int idPais, String nombrePais) throws Exception {
-        Pais unPais = new Pais(idPais,nombrePais);
-        this.miPersistencia.crearPais(unPais);
-        return this.miPersistencia.damePais(idPais);
+    public Pais crearPais(String nombrePais) throws Exception {
+        Pais unP = null;
+        Pais unPais = new Pais(nombrePais);
+        if (!noExistePais(nombrePais)){
+            this.miPersistencia.crearPais(unPais);
+            unP = this.damePaisNombre(nombrePais);
+        }
+        return unP;
+    
     }
 
+    public boolean noExistePais(String nombrePais){
+        boolean valor = false;
+        Pais unPais = this.damePaisNombre(nombrePais);
+        if(unPais != null){
+            if(unPais.getNombrePais().equals(nombrePais)){
+                valor = true;
+            }
+        }
+        return valor;
+    }
+    
     public void editarPais(Pais miPais) throws Exception{
         this.miPersistencia.editarPais(miPais);
     }
@@ -317,6 +333,18 @@ public class Centro {
         this.miPersistencia.eliminarPais(id);
     }
 
+    public Pais damePaisNombre(String nombrePais){
+        Pais unpais = null;
+        List <Pais>paises = this.damePaises();
+        for(Pais unP:paises){
+            if (nombrePais.equals(unP.getNombrePais()))
+            {
+                unpais = unP;
+            }
+        }
+        return unpais;
+    }
+    
     public Pais damePais(int id) {
         return this.miPersistencia.damePais(id);
     }
@@ -409,8 +437,8 @@ public class Centro {
     
     //              METODOS PROVINCIA
 
-    public Provincia crearProvincia(int idProvincia, String nombreProvincia) throws Exception {
-        Provincia unaProvincia = new Provincia(idProvincia, nombreProvincia);
+    public Provincia crearProvincia(int idProvincia, String nombreProvincia, Pais unPais) throws Exception {
+        Provincia unaProvincia = new Provincia(idProvincia, nombreProvincia, unPais);
         this.miPersistencia.crearProvincia(unaProvincia);
         return this.miPersistencia.dameProvincia(idProvincia);
     }

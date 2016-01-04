@@ -10,24 +10,34 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 @Entity
 public class Provincia implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idProvincia;
     @Basic
     private String nombreProvincia;
-    @OneToMany
-    private List<Localidad> localidades = new LinkedList();
-    
+    @OneToOne
+    private Pais unPais;
+
+    public void setUnPais(Pais unPais) {
+        this.unPais = unPais;
+    }
+
+    public Pais getUnPais() {
+        return unPais;
+    }
     public Provincia() {
     }
 
-    public Provincia(int idProvincia, String nombreProvincia) {
+    public Provincia(int idProvincia, String nombreProvincia,Pais unPais) {
         this.idProvincia = idProvincia;
         this.nombreProvincia = nombreProvincia;
+        this.unPais = unPais;
     }
 
     public int getIdProvincia() {
@@ -46,12 +56,5 @@ public class Provincia implements Serializable{
         this.nombreProvincia = nombreProvincia;
     }
 
-    public List<Localidad> getLocalidades() {
-        return localidades;
-    }
 
-    public void setLocalidades(List<Localidad> localidades) {
-        this.localidades = localidades;
-    }
-    
 }

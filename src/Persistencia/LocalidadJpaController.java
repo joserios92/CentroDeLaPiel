@@ -7,7 +7,6 @@ package Persistencia;
 
 import LogicaDeNegocio.Localidad;
 import Persistencia.exceptions.NonexistentEntityException;
-import Persistencia.exceptions.PreexistingEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -20,12 +19,12 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Dell
+ * @author Alberto
  */
 public class LocalidadJpaController implements Serializable {
 
     public LocalidadJpaController() {
-        emf = Persistence.createEntityManagerFactory("CentroDeLaPielPU");
+         emf = Persistence.createEntityManagerFactory("CentroDeLaPielPU");
     }
 
     public LocalidadJpaController(EntityManagerFactory emf) {
@@ -37,18 +36,13 @@ public class LocalidadJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Localidad localidad) throws PreexistingEntityException, Exception {
+    public void create(Localidad localidad) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(localidad);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findLocalidad(localidad.getIdLocalidad()) != null) {
-                throw new PreexistingEntityException("Localidad " + localidad + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

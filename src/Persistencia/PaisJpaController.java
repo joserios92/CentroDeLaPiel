@@ -7,7 +7,6 @@ package Persistencia;
 
 import LogicaDeNegocio.Pais;
 import Persistencia.exceptions.NonexistentEntityException;
-import Persistencia.exceptions.PreexistingEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -20,17 +19,16 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Dell
+ * @author Alberto
  */
 public class PaisJpaController implements Serializable {
 
-    
-    public PaisJpaController() {
-        emf = Persistence.createEntityManagerFactory("CentroDeLaPielPU");
-    }
-
     public PaisJpaController(EntityManagerFactory emf) {
         this.emf = emf;
+    }
+
+    public PaisJpaController() {
+         emf = Persistence.createEntityManagerFactory("CentroDeLaPielPU");
     }
     private EntityManagerFactory emf = null;
 
@@ -38,18 +36,13 @@ public class PaisJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Pais pais) throws PreexistingEntityException, Exception {
+    public void create(Pais pais) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(pais);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findPais(pais.getIdPais()) != null) {
-                throw new PreexistingEntityException("Pais " + pais + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
