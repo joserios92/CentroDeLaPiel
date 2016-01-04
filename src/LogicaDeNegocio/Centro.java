@@ -63,9 +63,19 @@ public class Centro {
     }
     //              METODOS AGENDA
 
-    public void crearAgenda(int idAgenda, String fechaInicio, String fechaFin, String fechaGenerada, String fechaAplicada) throws Exception {
-        Agenda unaAgenda = new Agenda(idAgenda,fechaInicio,fechaFin,fechaGenerada,fechaAplicada);
+    public void crearAgenda(Calendar fechaInicio, Calendar fechaFin, int duracion) throws Exception {
+        Calendar fechaAplicada = Calendar.getInstance();
+        Agenda unaAgenda = new Agenda(fechaInicio,fechaFin,fechaAplicada);
         this.miPersistencia.crearAgenda(unaAgenda);
+        if (unaAgenda!=null) {
+            fechaInicio.
+            do{
+                if (true) {
+                
+                }
+            }while();
+            
+        }
     }
 
     public void editarAgenda(Agenda miAgenda) throws Exception{
