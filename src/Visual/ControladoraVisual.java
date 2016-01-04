@@ -21,8 +21,8 @@ public class ControladoraVisual {
         
     //              METODOS AGENDA
 
-    public void crearAgenda(int idAgenda, String fechaInicio, String fechaFin, String fechaGenerada, String fechaAplicada) throws Exception {
-        this.miCentro.crearAgenda(idAgenda,fechaInicio,fechaFin,fechaGenerada,fechaAplicada);
+    public void crearAgenda(Calendar fechaInicio,Calendar fechaFin, int duracion) throws Exception {
+        this.miCentro.crearAgenda(fechaInicio,fechaFin,duracion);
     }
 
     public void editarAgenda(Agenda miAgenda) throws Exception{
