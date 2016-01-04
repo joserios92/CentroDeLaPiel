@@ -3,6 +3,7 @@ package LogicaDeNegocio;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ public class ObraSocial implements Serializable{
     @Basic
     private String nombreObraSocial;
     @ManyToMany
-    private LinkedList<Paciente> Pacientes = new LinkedList();
+    private List<Paciente> Pacientes = new LinkedList();
     
 
     public ObraSocial() {
@@ -26,7 +27,7 @@ public class ObraSocial implements Serializable{
         this.nombreObraSocial = nombreObraSocial;
     }
 
-    public LinkedList<Paciente> getPacientes() {
+    public List<Paciente> getPacientes() {
         return Pacientes;
     }
 

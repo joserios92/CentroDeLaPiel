@@ -2,13 +2,10 @@
 package LogicaDeNegocio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
+import java.util.List;
+import javax.persistence.*;
 @Entity
 public class Agenda implements Serializable{
     @Id
@@ -22,9 +19,7 @@ public class Agenda implements Serializable{
     @Basic
     private String fechaAplicada;
     @OneToMany
-    private Profesional unProfesional;
-    @ManyToOne
-    private LinkedList<PlantillaTurno> PlantillaTurnos = new LinkedList();
+    private List<PlantillaTurno> PlantillaTurnos = new LinkedList();
 
     public Agenda() {
     }
@@ -44,16 +39,7 @@ public class Agenda implements Serializable{
     public void setIdAgenda(int idAgenda) {
         this.idAgenda = idAgenda;
     }
-
-    public Profesional getUnProfesional() {
-        return unProfesional;
-    }
-
-    public void setUnProfesional(Profesional unProfesional) {
-        this.unProfesional = unProfesional;
-    }
-
-    public LinkedList<PlantillaTurno> getPlantillaTurnos() {
+    public List<PlantillaTurno> getPlantillaTurnos() {
         return PlantillaTurnos;
     }
 

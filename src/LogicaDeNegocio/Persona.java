@@ -19,52 +19,34 @@ public class Persona implements Serializable{
     @Basic
     private String sexo;
     @Basic
-    private long telefono1;
+    private long telefonoFijo;
     @Basic
-    private long telefono2;
+    private long telefonoCelular;
     @Basic
     private long documento;
-    @Basic
-    private String calle;
-    @Basic
-    private int altura;
-    @Basic
-    private int piso;
-    @Basic
-    private String depto;
-    @Basic
-    private String torre;
-    @Basic
-    private String barrio;
-    @Basic
-    private int codigoPostal;
+    @Basic 
+    private String eMail;
     @OneToOne
     private TipoDocumento unTipoDocumento;
     @OneToOne
-    private Localidad unaLocalidad;
+    private Domicilio unDomicilio;
     
     public Persona() {
     }
 
-    public Persona(int idPersona, String nombre, String apellido, String fechaNac, String sexo, long telefono1, long telefono2, long documento, TipoDocumento unTipoDocumento, Localidad unaLocalidad, String calle, int altura, int piso, String depto, String torre, String barrio, int codigoPostal) {
-        this.idPersona = idPersona;
+    public Persona(String nombre, String apellido, String fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNac = fechaNac;
         this.sexo = sexo;
-        this.telefono1 = telefono1;
-        this.telefono2 = telefono2;
+        this.telefonoFijo = telefonoFijo;
+        this.telefonoCelular = telefonoCelular;
         this.documento = documento;
+        this.eMail = eMail;
         this.unTipoDocumento = unTipoDocumento;
-        this.unaLocalidad = unaLocalidad;
-        this.calle = calle;
-        this.altura = altura;
-        this.piso = piso;
-        this.depto = depto;
-        this.torre = torre;
-        this.barrio = barrio;
-        this.codigoPostal = codigoPostal;
+        this.unDomicilio = unDomicilio;
     }
+
 
     public int getIdPersona() {
         return idPersona;
@@ -106,20 +88,20 @@ public class Persona implements Serializable{
         this.sexo = sexo;
     }
 
-    public long getTelefono1() {
-        return telefono1;
+    public long getTelefonoFijo() {
+        return telefonoFijo;
     }
 
-    public void setTelefono1(long telefono1) {
-        this.telefono1 = telefono1;
+    public void setTelefonoFijo(long telefonoFijo) {
+        this.telefonoFijo = telefonoFijo;
     }
 
-    public long getTelefono2() {
-        return telefono2;
+    public long getTelefonoCelular() {
+        return telefonoCelular;
     }
 
-    public void setTelefono2(long telefono2) {
-        this.telefono2 = telefono2;
+    public void setTelefonoCelular(long telefonoCelular) {
+        this.telefonoCelular = telefonoCelular;
     }
 
     public long getDocumento() {
@@ -138,68 +120,12 @@ public class Persona implements Serializable{
         this.unTipoDocumento = unTipoDocumento;
     }
 
-    public Localidad getUnaLocalidad() {
-        return unaLocalidad;
+    public Domicilio getUnDomicilio() {
+        return unDomicilio;
     }
 
-    public void setUnaLocalidad(Localidad unaLocalidad) {
-        this.unaLocalidad = unaLocalidad;
-    }
-
-    public String getCalle() {
-        return calle;
-    }
-
-    public void setCalle(String calle) {
-        this.calle = calle;
-    }
-
-    public int getAltura() {
-        return altura;
-    }
-
-    public void setAltura(int altura) {
-        this.altura = altura;
-    }
-
-    public int getPiso() {
-        return piso;
-    }
-
-    public void setPiso(int piso) {
-        this.piso = piso;
-    }
-
-    public String getDepto() {
-        return depto;
-    }
-
-    public void setDepto(String depto) {
-        this.depto = depto;
-    }
-
-    public String getTorre() {
-        return torre;
-    }
-
-    public void setTorre(String torre) {
-        this.torre = torre;
-    }
-
-    public String getBarrio() {
-        return barrio;
-    }
-
-    public void setBarrio(String barrio) {
-        this.barrio = barrio;
-    }
-
-    public int getCodigoPostal() {
-        return codigoPostal;
-    }
-
-    public void setCodigoPostal(int codigoPostal) {
-        this.codigoPostal = codigoPostal;
+    public void setUnDomicilio(Domicilio unDomicilio) {
+        this.unDomicilio = unDomicilio;
     }
     
 }

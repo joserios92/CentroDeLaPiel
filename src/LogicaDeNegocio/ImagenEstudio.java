@@ -1,6 +1,7 @@
 
 package LogicaDeNegocio;
 
+import java.awt.Image;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -14,27 +15,18 @@ public class ImagenEstudio implements Serializable{
     @Basic
     private String comentario;
     @Basic
-    private String imagen;
-    @OneToMany
-    private Estudio unEstudio;
-    
+    private String nombreImagen;
+    @Basic
+    private String archivo;
 
     public ImagenEstudio() {
     }
 
-    public ImagenEstudio(Estudio unEstudio, int idImagenEstudio, String comentario, String imagen) {
-        this.unEstudio = unEstudio;
+    public ImagenEstudio(int idImagenEstudio, String comentario, String nombreImagen, String archivo) {
         this.idImagenEstudio = idImagenEstudio;
         this.comentario = comentario;
-        this.imagen = imagen;
-    }
-
-    public Estudio getUnEstudio() {
-        return unEstudio;
-    }
-
-    public void setUnEstudio(Estudio unEstudio) {
-        this.unEstudio = unEstudio;
+        this.nombreImagen = nombreImagen;
+        this.archivo = archivo;
     }
 
     public int getIdImagenEstudio() {
@@ -53,12 +45,19 @@ public class ImagenEstudio implements Serializable{
         this.comentario = comentario;
     }
 
-    public String getImagen() {
-        return imagen;
+    public String getNombreImagen() {
+        return nombreImagen;
     }
 
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
+    public void setNombreImagen(String nombreImagen) {
+        this.nombreImagen = nombreImagen;
     }
-    
+
+    public String getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(String archivo) {
+        this.archivo = archivo;
+    }    
 }

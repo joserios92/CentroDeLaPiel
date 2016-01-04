@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="CentroDeLaPielPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>LogicaDeNegocio.Agenda</class>
+    <class>LogicaDeNegocio.Domicilio</class>
+    <class>LogicaDeNegocio.EstadoTurno</class>
+    <class>LogicaDeNegocio.Estudio</class>
+    <class>LogicaDeNegocio.ImagenEstudio</class>
+    <class>LogicaDeNegocio.Localidad</class>
+    <class>LogicaDeNegocio.ObraSocial</class>
+    <class>LogicaDeNegocio.Paciente</class>
+    <class>LogicaDeNegocio.Pais</class>
+    <class>LogicaDeNegocio.Persona</class>
+    <class>LogicaDeNegocio.PlantillaTurno</class>
+    <class>LogicaDeNegocio.Profesional</class>
+    <class>LogicaDeNegocio.Provincia</class>
+    <class>LogicaDeNegocio.TipoDocumento</class>
+    <class>LogicaDeNegocio.TipoEstudio</class>
+    <class>LogicaDeNegocio.TipoUsuario</class>
+    <class>LogicaDeNegocio.Turno</class>
+    <class>LogicaDeNegocio.Usuario</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Centro"/>
+      <property name="javax.persistence.jdbc.user" value="postgres"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="fjlanweb"/>
+    </properties>
+  </persistence-unit>
+</persistence>

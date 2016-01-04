@@ -1,33 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package LogicaDeNegocio;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 @Entity
 public class Profesional extends Persona implements Serializable{
     @Basic
     private int matricula;
-    @ManyToOne
-    private LinkedList<Agenda> agendas = new LinkedList();
+    @OneToOne
+    private Usuario unUsuario;
+    @OneToMany
+    private List<Agenda> agendas = new LinkedList();
 
     public Profesional() {
     }
 
-    public Profesional(int matricula) {
+    public Profesional(int matricula, Usuario unUsuario, String nombre, String apellido, String fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) {
+        super(nombre, apellido, fechaNac, sexo, telefonoFijo, telefonoCelular, documento, eMail, unTipoDocumento, unDomicilio);
         this.matricula = matricula;
-    }
-
-    public Profesional(int matricula, int idPersona, String nombre, String apellido, String fechaNac, String sexo, long telefono1, long telefono2, long documento, TipoDocumento unTipoDocumento, Localidad unaLocalidad, String calle, int altura, int piso, String depto, String torre, String barrio, int codigoPostal) {
-        super(idPersona, nombre, apellido, fechaNac, sexo, telefono1, telefono2, documento, unTipoDocumento, unaLocalidad, calle, altura, piso, depto, torre, barrio, codigoPostal);
-        this.matricula = matricula;
+        this.unUsuario = unUsuario;
     }
 
     public int getMatricula() {
@@ -38,14 +35,20 @@ public class Profesional extends Persona implements Serializable{
         this.matricula = matricula;
     }
 
-    public LinkedList<Agenda> getAgendas() {
+    public Usuario getUnUsuario() {
+        return unUsuario;
+    }
+
+    public void setUnUsuario(Usuario unUsuario) {
+        this.unUsuario = unUsuario;
+    }
+
+    public List<Agenda> getAgendas() {
         return agendas;
     }
 
-    public void setAgendas(LinkedList<Agenda> agendas) {
+    public void setAgendas(List<Agenda> agendas) {
         this.agendas = agendas;
     }
-
- 
 
 }

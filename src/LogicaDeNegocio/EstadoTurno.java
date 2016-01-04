@@ -2,6 +2,7 @@
 package LogicaDeNegocio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -14,8 +15,7 @@ public class EstadoTurno implements Serializable{
     private int idEstadoTurno;
     @Basic
     private String nombreEstado;
-    @ManyToOne
-    private LinkedList<Turno> Turnos = new LinkedList();
+    
 
     public EstadoTurno() {
     }
@@ -39,14 +39,5 @@ public class EstadoTurno implements Serializable{
 
     public void setNombreEstado(String nombreEstado) {
         this.nombreEstado = nombreEstado;
-    }
-
-    public LinkedList<Turno> getTurnos() {
-        return Turnos;
-    }
-
-    public void setTurnos(LinkedList<Turno> Turnos) {
-        this.Turnos = Turnos;
-    }
-    
+    } 
 }

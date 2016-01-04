@@ -6,9 +6,12 @@
 package LogicaDeNegocio;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 @Entity
 public class Provincia implements Serializable{
@@ -16,8 +19,9 @@ public class Provincia implements Serializable{
     private int idProvincia;
     @Basic
     private String nombreProvincia;
-    @OneToOne
-    private Pais unPais;
+    @OneToMany
+    private List<Localidad> localidades = new LinkedList();
+    
     public Provincia() {
     }
 
@@ -40,6 +44,14 @@ public class Provincia implements Serializable{
 
     public void setNombreProvincia(String nombreProvincia) {
         this.nombreProvincia = nombreProvincia;
+    }
+
+    public List<Localidad> getLocalidades() {
+        return localidades;
+    }
+
+    public void setLocalidades(List<Localidad> localidades) {
+        this.localidades = localidades;
     }
     
 }

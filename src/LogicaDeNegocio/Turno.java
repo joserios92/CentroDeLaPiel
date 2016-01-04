@@ -1,41 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package LogicaDeNegocio;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 @Entity
 public class Turno implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idTurno;
     @Basic
-    private String fecha;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fecha;
     @Basic
     private int hora;
-    @OneToMany
-    private PlantillaTurno unaPlantilla;
     @OneToOne
-    private Paciente unPaciente;
-    @OneToMany
     private EstadoTurno unEstadoTurno;
 
     public Turno() {
     }
 
-    public Turno(int idTurno, String fecha, int hora, PlantillaTurno unaPlantilla, Paciente unPaciente, EstadoTurno unEstadoTurno) {
-        this.idTurno = idTurno;
+    public Turno(Date fecha, int hora, EstadoTurno unEstadoTurno) {
         this.fecha = fecha;
         this.hora = hora;
-        this.unaPlantilla = unaPlantilla;
-        this.unPaciente = unPaciente;
         this.unEstadoTurno = unEstadoTurno;
     }
 
@@ -47,11 +42,11 @@ public class Turno implements Serializable{
         this.idTurno = idTurno;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
@@ -63,22 +58,6 @@ public class Turno implements Serializable{
         this.hora = hora;
     }
 
-    public PlantillaTurno getUnaPlantilla() {
-        return unaPlantilla;
-    }
-
-    public void setUnaPlantilla(PlantillaTurno unaPlantilla) {
-        this.unaPlantilla = unaPlantilla;
-    }
-
-    public Paciente getUnPaciente() {
-        return unPaciente;
-    }
-
-    public void setUnPaciente(Paciente unPaciente) {
-        this.unPaciente = unPaciente;
-    }
-
     public EstadoTurno getUnEstadoTurno() {
         return unEstadoTurno;
     }
@@ -86,6 +65,5 @@ public class Turno implements Serializable{
     public void setUnEstadoTurno(EstadoTurno unEstadoTurno) {
         this.unEstadoTurno = unEstadoTurno;
     }
-    
     
 }
