@@ -22,9 +22,9 @@
     <class>LogicaDeNegocio.Usuario</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Centro"/>
-      <property name="javax.persistence.jdbc.user" value="postgres"/>
+      <property name="javax.persistence.jdbc.user" value="Centro"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="fjlanweb"/>
+      <property name="javax.persistence.jdbc.password" value="piel"/>
     </properties>
   </persistence-unit>
 </persistence>
