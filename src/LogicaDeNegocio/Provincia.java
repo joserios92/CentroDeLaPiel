@@ -19,6 +19,11 @@ import javax.persistence.OneToOne;
 public class Provincia implements Serializable{
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idProvincia;
+
+    @Override
+    public String toString() {
+        return nombreProvincia;
+    }
     @Basic
     private String nombreProvincia;
     @OneToOne

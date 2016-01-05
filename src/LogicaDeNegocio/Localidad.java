@@ -21,6 +21,11 @@ public class Localidad implements Serializable{
     public Localidad() {
     }
 
+    @Override
+    public String toString() {
+        return nombreLocalidad;
+    }
+
     public Localidad(int idLocalidad, String nombreLocalidad, Provincia unaProvincia) {
         this.idLocalidad = idLocalidad;
         this.nombreLocalidad = nombreLocalidad;
