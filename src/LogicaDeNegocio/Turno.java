@@ -23,14 +23,17 @@ public class Turno implements Serializable{
     @Basic
     private int hora;
     @OneToOne
+    private PlantillaTurno unaPlantillaTurno;
+    @OneToOne
     private EstadoTurno unEstadoTurno;
 
     public Turno() {
     }
 
-    public Turno(Date fecha, int hora, EstadoTurno unEstadoTurno) {
+    public Turno(Date fecha, int hora, PlantillaTurno unaPlantillaTurno, EstadoTurno unEstadoTurno) {
         this.fecha = fecha;
         this.hora = hora;
+        this.unaPlantillaTurno = unaPlantillaTurno;
         this.unEstadoTurno = unEstadoTurno;
     }
 
@@ -65,5 +68,5 @@ public class Turno implements Serializable{
     public void setUnEstadoTurno(EstadoTurno unEstadoTurno) {
         this.unEstadoTurno = unEstadoTurno;
     }
-    
+
 }

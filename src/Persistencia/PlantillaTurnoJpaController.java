@@ -5,19 +5,18 @@
  */
 package Persistencia;
 
-import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import LogicaDeNegocio.Agenda;
 import LogicaDeNegocio.PlantillaTurno;
 import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -43,16 +42,7 @@ public class PlantillaTurnoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Agenda unaAgenda = plantillaTurno.getUnaAgenda();
-            if (unaAgenda != null) {
-                unaAgenda = em.getReference(unaAgenda.getClass(), unaAgenda.getIdAgenda());
-                plantillaTurno.setUnaAgenda(unaAgenda);
-            }
             em.persist(plantillaTurno);
-            if (unaAgenda != null) {
-                unaAgenda.getPlantillaTurnos().add(plantillaTurno);
-                unaAgenda = em.merge(unaAgenda);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findPlantillaTurno(plantillaTurno.getIdPlantilla()) != null) {
@@ -71,22 +61,7 @@ public class PlantillaTurnoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            PlantillaTurno persistentPlantillaTurno = em.find(PlantillaTurno.class, plantillaTurno.getIdPlantilla());
-            Agenda unaAgendaOld = persistentPlantillaTurno.getUnaAgenda();
-            Agenda unaAgendaNew = plantillaTurno.getUnaAgenda();
-            if (unaAgendaNew != null) {
-                unaAgendaNew = em.getReference(unaAgendaNew.getClass(), unaAgendaNew.getIdAgenda());
-                plantillaTurno.setUnaAgenda(unaAgendaNew);
-            }
             plantillaTurno = em.merge(plantillaTurno);
-            if (unaAgendaOld != null && !unaAgendaOld.equals(unaAgendaNew)) {
-                unaAgendaOld.getPlantillaTurnos().remove(plantillaTurno);
-                unaAgendaOld = em.merge(unaAgendaOld);
-            }
-            if (unaAgendaNew != null && !unaAgendaNew.equals(unaAgendaOld)) {
-                unaAgendaNew.getPlantillaTurnos().add(plantillaTurno);
-                unaAgendaNew = em.merge(unaAgendaNew);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -115,11 +90,6 @@ public class PlantillaTurnoJpaController implements Serializable {
                 plantillaTurno.getIdPlantilla();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The plantillaTurno with id " + id + " no longer exists.", enfe);
-            }
-            Agenda unaAgenda = plantillaTurno.getUnaAgenda();
-            if (unaAgenda != null) {
-                unaAgenda.getPlantillaTurnos().remove(plantillaTurno);
-                unaAgenda = em.merge(unaAgenda);
             }
             em.remove(plantillaTurno);
             em.getTransaction().commit();

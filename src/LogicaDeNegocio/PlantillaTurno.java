@@ -1,6 +1,7 @@
 package LogicaDeNegocio;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Basic;
@@ -8,39 +9,26 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 @Entity
 public class PlantillaTurno implements Serializable{
     @Id
     private int idPlantilla;
     @Basic
-    private int dia;
-    @Basic
-    private int hora;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Calendar fecha;
     @Basic
     private int duracion;
     @ManyToOne
     private Agenda unaAgenda;
-    @OneToMany
-    private List<Turno> turnos = new LinkedList();
     
-
-    public PlantillaTurno() {
+  public PlantillaTurno() {
     }
 
-    public PlantillaTurno(int idPlantilla, Agenda unaAgenda, int dia, int hora, int duracion) {
-        this.idPlantilla = idPlantilla;
-        this.unaAgenda = unaAgenda;
-        this.dia = dia;
-        this.hora = hora;
+    public PlantillaTurno(Calendar fecha, int duracion, Agenda unaAgenda) {
+        this.fecha = fecha;
         this.duracion = duracion;
-    }
-
-    public List<Turno> getTurnos() {
-        return turnos;
-    }
-
-    public void setTurnos(LinkedList<Turno> Turnos) {
-        this.turnos = Turnos;
+        this.unaAgenda = unaAgenda;
     }
 
     public int getIdPlantilla() {
@@ -51,28 +39,12 @@ public class PlantillaTurno implements Serializable{
         this.idPlantilla = idPlantilla;
     }
 
-    public Agenda getUnaAgenda() {
-        return unaAgenda;
+    public Calendar getFecha() {
+        return fecha;
     }
 
-    public void setUnaAgenda(Agenda unaAgenda) {
-        this.unaAgenda = unaAgenda;
-    }
-
-    public int getDia() {
-        return dia;
-    }
-
-    public void setDia(int dia) {
-        this.dia = dia;
-    }
-
-    public int getHora() {
-        return hora;
-    }
-
-    public void setHora(int hora) {
-        this.hora = hora;
+    public void setFecha(Calendar fecha) {
+        this.fecha = fecha;
     }
 
     public int getDuracion() {
@@ -82,5 +54,13 @@ public class PlantillaTurno implements Serializable{
     public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
-    
+
+    public Agenda getUnaAgenda() {
+        return unaAgenda;
+    }
+
+    public void setUnaAgenda(Agenda unaAgenda) {
+        this.unaAgenda = unaAgenda;
+    }
+
 }

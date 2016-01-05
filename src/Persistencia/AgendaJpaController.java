@@ -7,7 +7,6 @@ package Persistencia;
 
 import LogicaDeNegocio.Agenda;
 import Persistencia.exceptions.NonexistentEntityException;
-import Persistencia.exceptions.PreexistingEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -37,18 +36,13 @@ public class AgendaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Agenda agenda) throws PreexistingEntityException, Exception {
+    public void create(Agenda agenda) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(agenda);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findAgenda(agenda.getIdAgenda()) != null) {
-                throw new PreexistingEntityException("Agenda " + agenda + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

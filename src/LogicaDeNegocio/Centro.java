@@ -67,12 +67,13 @@ public class Centro {
         Calendar fechaAplicada = Calendar.getInstance();
         Agenda unaAgenda = new Agenda(fechaInicio,fechaFin,fechaAplicada);
         this.miPersistencia.crearAgenda(unaAgenda);
+        Calendar fecha = fechaInicio;
         if (unaAgenda!=null) {
-            fechaInicio.
             do{
-                if (true) {
-                
+                if ((fecha.getTime().getDay()!=6)&&(fecha.getTime().getDay()!=0)) {
+                    this.crearPlantillaTurno(duracion, unaAgenda, duracion, duracion, duracion)
                 }
+                
             }while();
             
         }

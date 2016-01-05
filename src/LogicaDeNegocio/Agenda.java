@@ -3,32 +3,31 @@ package LogicaDeNegocio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
 @Entity
 public class Agenda implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idAgenda;
     @Basic
-    private String fechaInicio;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Calendar fechaInicio;
     @Basic
-    private String fechaFin;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Calendar fechaFin;
     @Basic
-    private String fechaGenerada;
-    @Basic
-    private String fechaAplicada;
-    @OneToMany
-    private List<PlantillaTurno> PlantillaTurnos = new LinkedList();
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Calendar fechaAplicada;
+    
 
     public Agenda() {
     }
 
-    public Agenda(int idAgenda, String fechaInicio, String fechaFin, String fechaGenerada, String fechaAplicada) {
-        this.idAgenda = idAgenda;
+    public Agenda(Calendar fechaInicio, Calendar fechaFin,Calendar fechaAplicada) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-        this.fechaGenerada = fechaGenerada;
         this.fechaAplicada = fechaAplicada;
     }
 
@@ -39,43 +38,28 @@ public class Agenda implements Serializable{
     public void setIdAgenda(int idAgenda) {
         this.idAgenda = idAgenda;
     }
-    public List<PlantillaTurno> getPlantillaTurnos() {
-        return PlantillaTurnos;
-    }
-
-    public void setPlantillaTurnos(LinkedList<PlantillaTurno> PlantillaTurnos) {
-        this.PlantillaTurnos = PlantillaTurnos;
-    }
-
-    public String getFechaInicio() {
+    
+    public Calendar getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Calendar fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaFin() {
+    public Calendar getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(String fechaFin) {
+    public void setFechaFin(Calendar fechaFin) {
         this.fechaFin = fechaFin;
     }
-
-    public String getFechaGenerada() {
-        return fechaGenerada;
-    }
-
-    public void setFechaGenerada(String fechaGenerada) {
-        this.fechaGenerada = fechaGenerada;
-    }
-
-    public String getFechaAplicada() {
+    
+    public Calendar getFechaAplicada() {
         return fechaAplicada;
     }
 
-    public void setFechaAplicada(String fechaAplicada) {
+    public void setFechaAplicada(Calendar fechaAplicada) {
         this.fechaAplicada = fechaAplicada;
     }
     
