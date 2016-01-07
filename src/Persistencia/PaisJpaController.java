@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Persistencia;
 
 import LogicaDeNegocio.Pais;
 import Persistencia.exceptions.NonexistentEntityException;
-import Persistencia.exceptions.PreexistingEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -18,13 +13,8 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-/**
- *
- * @author Dell
- */
 public class PaisJpaController implements Serializable {
 
-    
     public PaisJpaController() {
         emf = Persistence.createEntityManagerFactory("CentroDeLaPielPU");
     }
@@ -38,18 +28,13 @@ public class PaisJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Pais pais) throws PreexistingEntityException, Exception {
+    public void create(Pais pais) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(pais);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findPais(pais.getIdPais()) != null) {
-                throw new PreexistingEntityException("Pais " + pais + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

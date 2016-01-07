@@ -2,6 +2,7 @@
 package LogicaDeNegocio;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
@@ -18,7 +19,7 @@ public class Paciente extends Persona implements Serializable{
     public Paciente() {
     }
 
-    public Paciente(int nroFicha, String nombre, String apellido, String fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) {
+    public Paciente(int nroFicha, String nombre, String apellido, Calendar fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) {
         super(nombre, apellido, fechaNac, sexo, telefonoFijo, telefonoCelular, documento, eMail, unTipoDocumento, unDomicilio);
         this.nroFicha = nroFicha;
     }

@@ -4,11 +4,13 @@ package LogicaDeNegocio;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class TipoDocumento implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idTipo;
     @Basic
     private String nombreTipo;
@@ -16,8 +18,7 @@ public class TipoDocumento implements Serializable{
     public TipoDocumento() {
     }
 
-    public TipoDocumento(int idTipo, String nombreTipo) {
-        this.idTipo = idTipo;
+    public TipoDocumento(String nombreTipo) {
         this.nombreTipo = nombreTipo;
     }
 

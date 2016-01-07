@@ -2,14 +2,12 @@
 package LogicaDeNegocio;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -19,21 +17,18 @@ public class Turno implements Serializable{
     private int idTurno;
     @Basic
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date fecha;
+    private Calendar fecha;
     @Basic
-    private int hora;
-    @OneToOne
-    private PlantillaTurno unaPlantillaTurno;
+    private float hora;
     @OneToOne
     private EstadoTurno unEstadoTurno;
 
     public Turno() {
     }
 
-    public Turno(Date fecha, int hora, PlantillaTurno unaPlantillaTurno, EstadoTurno unEstadoTurno) {
+    public Turno(Calendar fecha, float hora, EstadoTurno unEstadoTurno) {
         this.fecha = fecha;
         this.hora = hora;
-        this.unaPlantillaTurno = unaPlantillaTurno;
         this.unEstadoTurno = unEstadoTurno;
     }
 
@@ -45,19 +40,19 @@ public class Turno implements Serializable{
         this.idTurno = idTurno;
     }
 
-    public Date getFecha() {
+    public Calendar getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(Calendar fecha) {
         this.fecha = fecha;
     }
 
-    public int getHora() {
+    public float getHora() {
         return hora;
     }
 
-    public void setHora(int hora) {
+    public void setHora(float hora) {
         this.hora = hora;
     }
 

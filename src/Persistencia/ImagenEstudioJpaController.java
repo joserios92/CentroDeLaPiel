@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Persistencia;
 
 import LogicaDeNegocio.ImagenEstudio;
 import Persistencia.exceptions.NonexistentEntityException;
-import Persistencia.exceptions.PreexistingEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -18,10 +13,6 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-/**
- *
- * @author Dell
- */
 public class ImagenEstudioJpaController implements Serializable {
 
     public ImagenEstudioJpaController() {
@@ -37,18 +28,13 @@ public class ImagenEstudioJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(ImagenEstudio imagenEstudio) throws PreexistingEntityException, Exception {
+    public void create(ImagenEstudio imagenEstudio) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(imagenEstudio);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findImagenEstudio(imagenEstudio.getIdImagenEstudio()) != null) {
-                throw new PreexistingEntityException("ImagenEstudio " + imagenEstudio + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

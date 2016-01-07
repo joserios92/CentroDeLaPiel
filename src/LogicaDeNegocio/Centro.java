@@ -63,20 +63,62 @@ public class Centro {
     }
     //              METODOS AGENDA
 
-    public void crearAgenda(Calendar fechaInicio, Calendar fechaFin, int duracion) throws Exception {
+    public void crearAgenda(Calendar fechaInicio,Calendar fechaFin,float duracion,float horario1,float horario2,float horario3,float horario4) throws Exception {
+        int valor = 0;
         Calendar fechaAplicada = Calendar.getInstance();
+        List<Float> horarios = new LinkedList();
+        horarios.add(horario1);
+        horarios.add(horario2);
+        horarios.add(horario3);
+        horarios.add(horario4);
         Agenda unaAgenda = new Agenda(fechaInicio,fechaFin,fechaAplicada);
         this.miPersistencia.crearAgenda(unaAgenda);
         Calendar fecha = fechaInicio;
         if (unaAgenda!=null) {
             do{
                 if ((fecha.getTime().getDay()!=6)&&(fecha.getTime().getDay()!=0)) {
-                    this.crearPlantillaTurno(duracion, unaAgenda, duracion, duracion, duracion)
+                    List<Turno> turnos = this.crearTurnos(fecha,duracion,horarios);
+                    this.crearPlantillaTurno(fecha, duracion, unaAgenda,turnos);
                 }
-                
-            }while();
+                fecha.add(Calendar.DAY_OF_YEAR, 1);
+                if (fecha.getTime().getYear()==fechaFin.getTime().getYear()) {
+                    if (fecha.getTime().getMonth()==fechaFin.getTime().getMonth()) {
+                        if (fecha.getTime().getDay()==fechaFin.getTime().getDay()) {
+                            valor = 1;
+                        }
+                    }
+                }
+            }while(valor==1);
             
         }
+    }
+    
+    public List crearTurnos(Calendar fecha,float duracion,List<Float> horarios){
+        List<Turno> turnos = new LinkedList();
+        EstadoTurno unEstadoTurno = this.dameEstadoTurnoPorNombre("DISPONIBLE");
+        float horario1 = horarios.get(0);
+        float hora = horario1;
+        do{
+            try {
+                Turno unT = this.crearTurno(fecha, hora, unEstadoTurno);
+                turnos.add(unT);
+                hora = hora + duracion;
+            } catch (Exception ex) {
+                Logger.getLogger(Centro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }while(hora==horarios.get(1));
+        float horario2 = horarios.get(2);
+        hora = horario2;
+        do{
+            try {
+                Turno unT = this.crearTurno(fecha, hora, unEstadoTurno);
+                turnos.add(unT);
+                hora = hora + duracion;
+            } catch (Exception ex) {
+                Logger.getLogger(Centro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }while(hora==horarios.get(3));
+        return turnos;
     }
 
     public void editarAgenda(Agenda miAgenda) throws Exception{
@@ -126,10 +168,11 @@ public class Centro {
     }
     //              METODOS ESTADOTURNO
 
-    public EstadoTurno crearEstadoTurno(int idEstadoTurno, String nombreEstado) throws Exception {
-        EstadoTurno unEstadoTurno = new EstadoTurno(idEstadoTurno,nombreEstado);
+    public EstadoTurno crearEstadoTurno(String nombreEstado) throws Exception {
+        String nombreE = nombreEstado.toUpperCase();
+        EstadoTurno unEstadoTurno = new EstadoTurno(nombreE);
         this.miPersistencia.crearEstadoTurno(unEstadoTurno);
-        return this.dameEstadoTurno(idEstadoTurno);
+        return this.dameEstadoTurnoPorNombre(nombreE);
     }
 
     public void editarEstadoTurno(EstadoTurno miEstadoTurno) throws Exception{
@@ -146,13 +189,21 @@ public class Centro {
     public List<EstadoTurno> dameEstadoTurnos() {
         return this.miPersistencia.dameEstadoTurnos();
     }
-    
+    public EstadoTurno dameEstadoTurnoPorNombre(String nombreE){
+        EstadoTurno unE=null;
+        List<EstadoTurno> estados = this.dameEstadoTurnos();
+        for (EstadoTurno unEstado:estados) {
+            if (unEstado.getNombreEstado().equals(nombreE)) {
+                unE=unEstado;
+            }
+        }
+        return unE;
+    }
     //              METODOS ESTUDIO
 
-    public Estudio crearEstudio(Paciente unPaciente, int idEstudio, String comentario, String fecha) throws Exception {
-        Estudio unEstudio = new Estudio(unPaciente,idEstudio,comentario,fecha);
+    public void crearEstudio(Paciente unPaciente, String comentario, Calendar fecha) throws Exception {
+        Estudio unEstudio = new Estudio(unPaciente,comentario,fecha);
         this.miPersistencia.crearEstudio(unEstudio);
-        return this.miPersistencia.dameEstudio(idEstudio);
     }
 
     public void editarEstudio(Estudio miEstudio) throws Exception{
@@ -172,10 +223,9 @@ public class Centro {
     
     //              METODOS IMAGENESTUDIO
 
-    public ImagenEstudio crearImagenEstudio(int idImagenEstudio, String comentario, String nombreImagen, String archivo) throws Exception {
-        ImagenEstudio unImagenEstudio = new ImagenEstudio(idImagenEstudio,comentario,nombreImagen,archivo);
+    public void crearImagenEstudio(String comentario, String nombreImagen, String archivo) throws Exception {
+        ImagenEstudio unImagenEstudio = new ImagenEstudio(comentario,nombreImagen,archivo);
         this.miPersistencia.crearImagenEstudio(unImagenEstudio);
-        return this.miPersistencia.dameImagenEstudio(idImagenEstudio);
     }
 
     public void editarImagenEstudio(ImagenEstudio miImagenEstudio) throws Exception{
@@ -195,10 +245,10 @@ public class Centro {
     
     //              METODOS LOCALIDAD
 
-    public Localidad crearLocalidad(int idLocalidad, String nombreLocalidad, Provincia unaProvincia) throws Exception {
-        Localidad unaLocalidad = new Localidad(idLocalidad,nombreLocalidad,unaProvincia);
+    public Localidad crearLocalidad(String nombreLocalidad, Provincia unaProvincia) throws Exception {
+        Localidad unaLocalidad = new Localidad(nombreLocalidad,unaProvincia);
         this.miPersistencia.crearLocalidad(unaLocalidad);
-        return this.miPersistencia.dameLocalidad(idLocalidad);
+        return this.dameLocalidadPorNombre(nombreLocalidad);
     }
 
     public void editarLocalidad(Localidad miLocalidad) throws Exception{
@@ -215,13 +265,22 @@ public class Centro {
     public List<Localidad> dameLocalidades() {
         return this.miPersistencia.dameLocalidades();
     }
-    
+    public Localidad dameLocalidadPorNombre(String nombreLocalidad){
+        Localidad unaLocalidad = null;
+        List<Localidad> localidades = this.dameLocalidades();
+        for (Localidad unaL:localidades) {
+            if (unaL.getNombreLocalidad().equals(nombreLocalidad)) {
+                unaLocalidad = unaL;
+            }
+        }
+        return unaLocalidad;
+    }
     //              METODOS OBRASOCIAL
 
-    public ObraSocial crearObraSocial(int idObraSocial, String nombreObraSocial) throws Exception {
-        ObraSocial unaObraSocial = new ObraSocial(idObraSocial,nombreObraSocial);
+    public ObraSocial crearObraSocial(String nombreObraSocial) throws Exception {
+        ObraSocial unaObraSocial = new ObraSocial(nombreObraSocial);
         this.miPersistencia.crearObraSocial(unaObraSocial);
-        return this.miPersistencia.dameObraSocial(idObraSocial);
+        return this.dameObraSocialPorNombre(nombreObraSocial);
     }
 
     public void editarObraSocial(ObraSocial miObraSocial) throws Exception{
@@ -238,10 +297,21 @@ public class Centro {
     public List<ObraSocial> dameObraSociales() {
         return this.miPersistencia.dameObraSociales();
     }
+    public ObraSocial dameObraSocialPorNombre(String nombreObraSocial){
+    ObraSocial unaObraSocial = new ObraSocial();
+    List<ObraSocial> obrasSociales = this.dameObraSociales();
+        for (ObraSocial unaO : obrasSociales) {
+            if (unaO.getNombreObraSocial().equals(nombreObraSocial)) {
+                unaObraSocial = unaO;
+            }
+        }
+    return unaObraSocial;
+    }
     
-    //              METODOS PACIENTE    
 
-    public Paciente crearPaciente(int nroFicha, String nombre, String apellido, String fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) throws Exception {
+//              METODOS PACIENTE    
+
+    public Paciente crearPaciente(int nroFicha, String nombre, String apellido, Calendar fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) throws Exception {
         Paciente unPaciente = new Paciente(nroFicha,nombre,apellido,fechaNac,sexo,telefonoFijo,telefonoCelular,documento,eMail,unTipoDocumento,unDomicilio);
         this.miPersistencia.crearPaciente(unPaciente);
         return this.miPersistencia.damePaciente(nroFicha);
@@ -314,10 +384,10 @@ public class Centro {
     
     //              METODOS PAIS
 
-    public Pais crearPais(int idPais, String nombrePais) throws Exception {
-        Pais unPais = new Pais(idPais,nombrePais);
+    public Pais crearPais(String nombrePais) throws Exception {
+        Pais unPais = new Pais(nombrePais);
         this.miPersistencia.crearPais(unPais);
-        return this.miPersistencia.damePais(idPais);
+        return this.damePaisPorNombre(nombrePais);
     }
 
     public void editarPais(Pais miPais) throws Exception{
@@ -334,10 +404,20 @@ public class Centro {
     public List<Pais> damePaises() {
         return this.miPersistencia.damePaises();
     }
+    public Pais damePaisPorNombre(String nombrePais){
+    Pais unPais = null;
+    List<Pais> paises = this.damePaises();
+        for (Pais unP : paises) {
+            if (unP.getNombrePais().equals(nombrePais)) {
+                unPais = unP;
+            }
+        }
+    return unPais;
+    }
     
     //              METODOS PERSONA
 
-    public Persona crearPersona(String nombre, String apellido, String fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) throws Exception {
+    public Persona crearPersona(String nombre, String apellido, Calendar fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) throws Exception {
         Persona unaPersona = new Persona(nombre,apellido,fechaNac,sexo,telefonoFijo,telefonoCelular,documento,eMail,unTipoDocumento,unDomicilio);
         this.miPersistencia.crearPersona(unaPersona);
         Persona unaP = this.damePersonaPorNombre(nombre,apellido,documento);
@@ -374,10 +454,9 @@ public class Centro {
     }
     //              METODOS PLANTILLATURNO
 
-    public PlantillaTurno crearPlantillaTurno(int idPlantilla, Agenda unaAgenda, int dia, int hora, int duracion) throws Exception {
-        PlantillaTurno unaPlantillaTurno = new PlantillaTurno(idPlantilla,unaAgenda,dia,hora,duracion);
+    public void crearPlantillaTurno(Calendar fecha, float duracion, Agenda unaAgenda,List<Turno> turnos) throws Exception {
+        PlantillaTurno unaPlantillaTurno = new PlantillaTurno(fecha,duracion,unaAgenda,turnos);
         this.miPersistencia.crearPlantillaTurno(unaPlantillaTurno);
-        return this.miPersistencia.damePlantillaTurno(idPlantilla);
     }
 
     public void editarPlantillaTurno(PlantillaTurno miPlantillaTurno) throws Exception{
@@ -397,7 +476,7 @@ public class Centro {
     
     //              METODOS PROFESIONAL
 
-    public Profesional crearProfesional(int matricula, Usuario unUsuario, String nombre, String apellido, String fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) throws Exception {
+    public Profesional crearProfesional(int matricula, Usuario unUsuario, String nombre, String apellido, Calendar fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) throws Exception {
         Profesional unProfesional = new Profesional(matricula,unUsuario,nombre,apellido,fechaNac,sexo,telefonoFijo,telefonoCelular,documento,eMail,unTipoDocumento,unDomicilio);
         this.miPersistencia.crearProfesional(unProfesional);
         return this.miPersistencia.dameProfesional(matricula);
@@ -420,10 +499,10 @@ public class Centro {
     
     //              METODOS PROVINCIA
 
-    public Provincia crearProvincia(int idProvincia, String nombreProvincia) throws Exception {
-        Provincia unaProvincia = new Provincia(idProvincia, nombreProvincia);
+    public Provincia crearProvincia(String nombreProvincia) throws Exception {
+        Provincia unaProvincia = new Provincia(nombreProvincia);
         this.miPersistencia.crearProvincia(unaProvincia);
-        return this.miPersistencia.dameProvincia(idProvincia);
+        return this.dameProvinciaPorNombre(nombreProvincia);
     }
 
     public void editarProvincia(Provincia miProvincia) throws Exception{
@@ -440,13 +519,22 @@ public class Centro {
     public List<Provincia> dameProvincias() {
         return this.miPersistencia.dameProvincias();
     }
-    
+    public Provincia dameProvinciaPorNombre(String nombreProvincia){
+    Provincia unaProvincia = null;
+    List<Provincia> provincias = this.dameProvincias();
+        for (Provincia unaP:provincias) {
+            if (unaP.getNombreProvincia().equals(nombreProvincia)) {
+                unaProvincia = unaP;
+            }
+        }
+    return unaProvincia;
+    }
     //              METODOS TIPODOCUMENTO
 
-    public TipoDocumento crearTipoDocumento(int idTipo, String nombreTipo) throws Exception {
-        TipoDocumento unTipoDocumento = new TipoDocumento(idTipo,nombreTipo);
+    public TipoDocumento crearTipoDocumento(String nombreTipo) throws Exception {
+        TipoDocumento unTipoDocumento = new TipoDocumento(nombreTipo);
         this.miPersistencia.crearTipoDocumento(unTipoDocumento);
-        return this.miPersistencia.dameTipoDocumento(idTipo);
+        return this.dameTipoDocumentoPorNombre(nombreTipo);
     }
 
     public void editarTipoDocumento(TipoDocumento miTipoDocumento) throws Exception{
@@ -463,13 +551,22 @@ public class Centro {
     public List<TipoDocumento> dameTipoDocumentos() {
         return this.miPersistencia.dameTipoDocumentos();
     }
-    
+    public TipoDocumento dameTipoDocumentoPorNombre(String nombreTipo){
+    TipoDocumento unTipoDocumento = null;
+    List<TipoDocumento> tipos = this.dameTipoDocumentos();
+        for (TipoDocumento unT:tipos) {
+            if (unT.getNombreTipo().equals(nombreTipo)) {
+                unTipoDocumento = unT;
+            }
+        }
+    return unTipoDocumento;
+    }
      //              METODOS TIPOESTUDIO
 
-    public TipoEstudio crearTipoEstudio(int idTipoEstudio, String nombreEstudio, int codigoNomenclador) throws Exception {
-        TipoEstudio unTipoEstudio = new TipoEstudio(idTipoEstudio,nombreEstudio,codigoNomenclador);
+    public TipoEstudio crearTipoEstudio(String nombreEstudio, int codigoNomenclador) throws Exception {
+        TipoEstudio unTipoEstudio = new TipoEstudio(nombreEstudio,codigoNomenclador);
         this.miPersistencia.crearTipoEstudio(unTipoEstudio);
-        return this.miPersistencia.dameTipoEstudio(idTipoEstudio);
+        return this.dameTipoEstudioPorNombre(nombreEstudio,codigoNomenclador);
     }
 
     public void editarTipoEstudio(TipoEstudio miTipoEstudio) throws Exception{
@@ -486,9 +583,21 @@ public class Centro {
     public List<TipoEstudio> dameTipoEstudios() {
         return this.miPersistencia.dameTipoEstudios();
     }
+    public TipoEstudio dameTipoEstudioPorNombre(String nombreEstudio, int codigoNomenclador){
+    TipoEstudio unTipoEstudio = null;
+    List<TipoEstudio> tipos = this.dameTipoEstudios();
+        for (TipoEstudio unT:tipos) {
+            if (unT.getNombreEstudio().equals(nombreEstudio)) {
+                if (unT.getCodigoNomenclador()==codigoNomenclador) {
+                    unTipoEstudio = unT;
+                }
+            }
+        }
+    return unTipoEstudio;
+    }
      //              METODOS TURNO
 
-    public Turno crearTurno(Date fecha, int hora, EstadoTurno unEstadoTurno) throws Exception {
+    public Turno crearTurno(Calendar fecha, float hora, EstadoTurno unEstadoTurno) throws Exception {
         Turno unTurno = new Turno(fecha,hora,unEstadoTurno);
         this.miPersistencia.crearTurno(unTurno);
         return this.dameTurnoPorFechaYHora(fecha,hora);
@@ -508,7 +617,7 @@ public class Centro {
     public List<Turno> dameTurnos() {
         return this.miPersistencia.dameTurnos();
     }
-    public Turno dameTurnoPorFechaYHora(Date fecha, int hora){
+    public Turno dameTurnoPorFechaYHora(Calendar fecha, float hora){
         Turno unTurno = null;
         List<Turno> turnos = this.miPersistencia.dameTurnos();
         for (Turno unT:turnos) {
@@ -525,9 +634,9 @@ public class Centro {
         List<Turno> turnos = this.miPersistencia.dameTurnos();
         for (Turno unT:turnos) {
             if(unT.getUnEstadoTurno().getNombreEstado().equals("activo")){
-                if (fecha.getTime().getYear()==unT.getFecha().getYear()) {
-                    if (fecha.getTime().getMonth()==unT.getFecha().getMonth()) {
-                        if (fecha.getTime().getDay()==unT.getFecha().getDay()) {
+                if (unT.getFecha().getTime().getYear()==fecha.getTime().getYear()) {
+                    if (fecha.getTime().getMonth()==unT.getFecha().getTime().getMonth()) {
+                        if (fecha.getTime().getDay()==unT.getFecha().getTime().getDay()) {
                             turno.add(unT);
                         }
                     }

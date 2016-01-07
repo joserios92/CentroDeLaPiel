@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Pais implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idPais;
     @Basic
     private String nombrePais;
@@ -19,8 +19,7 @@ public class Pais implements Serializable{
     public Pais() {
     }
 
-    public Pais(int idPais, String nombrePais) {
-        this.idPais = idPais;
+    public Pais(String nombrePais) {
         this.nombrePais = nombrePais;
     }
 

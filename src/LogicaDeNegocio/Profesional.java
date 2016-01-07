@@ -2,6 +2,7 @@
 package LogicaDeNegocio;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Basic;
@@ -21,7 +22,7 @@ public class Profesional extends Persona implements Serializable{
     public Profesional() {
     }
 
-    public Profesional(int matricula, Usuario unUsuario, String nombre, String apellido, String fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) {
+    public Profesional(int matricula, Usuario unUsuario, String nombre, String apellido, Calendar fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) {
         super(nombre, apellido, fechaNac, sexo, telefonoFijo, telefonoCelular, documento, eMail, unTipoDocumento, unDomicilio);
         this.matricula = matricula;
         this.unUsuario = unUsuario;

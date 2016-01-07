@@ -21,8 +21,8 @@ public class ControladoraVisual {
         
     //              METODOS AGENDA
 
-    public void crearAgenda(Calendar fechaInicio,Calendar fechaFin, int duracion) throws Exception {
-        this.miCentro.crearAgenda(fechaInicio,fechaFin,duracion);
+    public void crearAgenda(Calendar fechaInicio,Calendar fechaFin,float duracion,float horario1,float horario2,float horario3,float horario4) throws Exception {
+        this.miCentro.crearAgenda(fechaInicio,fechaFin,duracion,horario1,horario2,horario3,horario4);
     }
 
     public void editarAgenda(Agenda miAgenda) throws Exception{
@@ -63,9 +63,8 @@ public class ControladoraVisual {
     
     //              METODOS ESTADOTURNO
 
-    public EstadoTurno crearEstadoTurno(int idEstadoTurno, String nombreEstado) throws Exception {
-        this.miCentro.crearEstadoTurno(idEstadoTurno,nombreEstado);
-        return this.dameEstadoTurno(idEstadoTurno);
+    public EstadoTurno crearEstadoTurno(String nombreEstado) throws Exception {
+        return this.miCentro.crearEstadoTurno(nombreEstado);
     }
 
     public void editarEstadoTurno(EstadoTurno miEstadoTurno) throws Exception{
@@ -85,8 +84,8 @@ public class ControladoraVisual {
     
     //              METODOS ESTUDIO
 
-    public Estudio crearEstudio(Paciente unPaciente, int idEstudio, String comentario, String fecha) throws Exception {
-        return this.miCentro.crearEstudio(unPaciente,idEstudio,comentario,fecha);
+    public void crearEstudio(Paciente unPaciente, String comentario, Calendar fecha) throws Exception {
+        this.miCentro.crearEstudio(unPaciente, comentario, fecha);
     }
 
     public void editarEstudio(Estudio miEstudio) throws Exception{
@@ -106,8 +105,8 @@ public class ControladoraVisual {
     
     //              METODOS IMAGENESTUDIO
 
-    public ImagenEstudio crearImagenEstudio(int idImagenEstudio, String comentario, String nombreImagen, String archivo) throws Exception {
-        return this.miCentro.crearImagenEstudio(idImagenEstudio,comentario,nombreImagen,archivo);
+    public void crearImagenEstudio(String comentario, String nombreImagen, String archivo) throws Exception {
+        this.miCentro.crearImagenEstudio(comentario,nombreImagen,archivo);
     }
 
     public void editarImagenEstudio(ImagenEstudio miImagenEstudio) throws Exception{
@@ -127,8 +126,8 @@ public class ControladoraVisual {
     
     //              METODOS LOCALIDAD
 
-    public Localidad crearLocalidad(int idLocalidad, String nombreLocalidad, Provincia unaProvincia) throws Exception {
-        return this.miCentro.crearLocalidad(idLocalidad,nombreLocalidad,unaProvincia);
+    public Localidad crearLocalidad(String nombreLocalidad, Provincia unaProvincia) throws Exception {
+        return this.miCentro.crearLocalidad(nombreLocalidad,unaProvincia);
     }
 
     public void editarLocalidad(Localidad miLocalidad) throws Exception{
@@ -148,8 +147,8 @@ public class ControladoraVisual {
     
     //              METODOS OBRASOCIAL
 
-    public ObraSocial crearObraSocial(int idObraSocial, String nombreObraSocial) throws Exception {
-        return this.miCentro.crearObraSocial(idObraSocial,nombreObraSocial);
+    public ObraSocial crearObraSocial(String nombreObraSocial) throws Exception {
+        return this.miCentro.crearObraSocial(nombreObraSocial);
     }
 
     public void editarObraSocial(ObraSocial miObraSocial) throws Exception{
@@ -169,7 +168,7 @@ public class ControladoraVisual {
     
     //              METODOS PACIENTE    
 
-    public Paciente crearPaciente(int nroFicha, String nombre, String apellido, String fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) throws Exception {
+    public Paciente crearPaciente(int nroFicha, String nombre, String apellido, Calendar fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) throws Exception {
         return this.miCentro.crearPaciente(nroFicha,nombre,apellido,fechaNac,sexo,telefonoFijo,telefonoCelular,documento,eMail,unTipoDocumento,unDomicilio);
     }
 
@@ -192,8 +191,8 @@ public class ControladoraVisual {
     }
     //              METODOS PAIS
 
-    public Pais crearPais(int idPais, String nombrePais) throws Exception {
-        return this.miCentro.crearPais(idPais,nombrePais);
+    public Pais crearPais(String nombrePais) throws Exception {
+        return this.miCentro.crearPais(nombrePais);
     }
 
     public void editarPais(Pais miPais) throws Exception{
@@ -213,7 +212,7 @@ public class ControladoraVisual {
     
     //              METODOS PERSONA
 
-    public Persona crearPersona(String nombre, String apellido, String fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) throws Exception {
+    public Persona crearPersona(String nombre, String apellido, Calendar fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) throws Exception {
         return this.miCentro.crearPersona(nombre,apellido,fechaNac,sexo,telefonoFijo,telefonoCelular,documento,eMail,unTipoDocumento,unDomicilio);
     }
 
@@ -234,8 +233,8 @@ public class ControladoraVisual {
     
     //              METODOS PLANTILLATURNO
 
-    public PlantillaTurno crearPlantillaTurno(int idPlantilla, Agenda unaAgenda, int dia, int hora, int duracion) throws Exception {
-        return this.miCentro.crearPlantillaTurno(idPlantilla,unaAgenda,dia,hora,duracion);
+    public void crearPlantillaTurno(Calendar fecha, float duracion, Agenda unaAgenda, List<Turno> turnos) throws Exception {
+        this.miCentro.crearPlantillaTurno(fecha,duracion,unaAgenda,turnos);
     }
 
     public void editarPlantillaTurno(PlantillaTurno miPlantillaTurno) throws Exception{
@@ -255,7 +254,7 @@ public class ControladoraVisual {
     
     //              METODOS PROFESIONAL
 
-    public Profesional crearProfesional(int matricula, Usuario unUsuario, String nombre, String apellido, String fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) throws Exception {
+    public Profesional crearProfesional(int matricula, Usuario unUsuario, String nombre, String apellido, Calendar fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) throws Exception {
         return this.miCentro.crearProfesional(matricula,unUsuario,nombre,apellido,fechaNac,sexo,telefonoFijo,telefonoCelular,documento,eMail,unTipoDocumento,unDomicilio);
     }
 
@@ -276,8 +275,8 @@ public class ControladoraVisual {
     
     //              METODOS PROVINCIA
 
-    public Provincia crearProvincia(int idProvincia, String nombreProvincia) throws Exception {
-        return this.miCentro.crearProvincia(idProvincia, nombreProvincia);
+    public Provincia crearProvincia(String nombreProvincia) throws Exception {
+        return this.miCentro.crearProvincia(nombreProvincia);
     }
 
     public void editarProvincia(Provincia miProvincia) throws Exception{
@@ -297,8 +296,8 @@ public class ControladoraVisual {
     
     //              METODOS TIPODOCUMENTO
 
-    public TipoDocumento crearTipoDocumento(int idTipo, String nombreTipo) throws Exception {
-        return this.miCentro.crearTipoDocumento(idTipo,nombreTipo);
+    public TipoDocumento crearTipoDocumento(String nombreTipo) throws Exception {
+        return this.miCentro.crearTipoDocumento(nombreTipo);
     }
 
     public void editarTipoDocumento(TipoDocumento miTipoDocumento) throws Exception{
@@ -318,8 +317,8 @@ public class ControladoraVisual {
     
      //              METODOS TIPOESTUDIO
 
-    public TipoEstudio crearTipoEstudio(int idTipoEstudio, String nombreEstudio, int codigoNomenclador) throws Exception {
-        return this.miCentro.crearTipoEstudio(idTipoEstudio,nombreEstudio,codigoNomenclador);
+    public TipoEstudio crearTipoEstudio(String nombreEstudio, int codigoNomenclador) throws Exception {
+        return this.miCentro.crearTipoEstudio(nombreEstudio,codigoNomenclador);
     }
 
     public void editarTipoEstudio(TipoEstudio miTipoEstudio) throws Exception{
@@ -338,7 +337,7 @@ public class ControladoraVisual {
     }
      //              METODOS TURNO
 
-    public Turno crearTurno(Date fecha, int hora,EstadoTurno unEstadoTurno) throws Exception {
+    public Turno crearTurno(Calendar fecha, int hora,EstadoTurno unEstadoTurno) throws Exception {
         return this.miCentro.crearTurno(fecha,hora,unEstadoTurno);
     }
 

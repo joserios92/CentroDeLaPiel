@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Persistencia;
 
 import LogicaDeNegocio.PlantillaTurno;
 import Persistencia.exceptions.NonexistentEntityException;
-import Persistencia.exceptions.PreexistingEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -18,10 +13,6 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-/**
- *
- * @author Dell
- */
 public class PlantillaTurnoJpaController implements Serializable {
 
     public PlantillaTurnoJpaController() {
@@ -37,18 +28,13 @@ public class PlantillaTurnoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(PlantillaTurno plantillaTurno) throws PreexistingEntityException, Exception {
+    public void create(PlantillaTurno plantillaTurno) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(plantillaTurno);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findPlantillaTurno(plantillaTurno.getIdPlantilla()) != null) {
-                throw new PreexistingEntityException("PlantillaTurno " + plantillaTurno + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

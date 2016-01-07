@@ -5,12 +5,14 @@ import java.awt.Image;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
 public class ImagenEstudio implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idImagenEstudio;
     @Basic
     private String comentario;
@@ -22,8 +24,7 @@ public class ImagenEstudio implements Serializable{
     public ImagenEstudio() {
     }
 
-    public ImagenEstudio(int idImagenEstudio, String comentario, String nombreImagen, String archivo) {
-        this.idImagenEstudio = idImagenEstudio;
+    public ImagenEstudio(String comentario, String nombreImagen, String archivo) {
         this.comentario = comentario;
         this.nombreImagen = nombreImagen;
         this.archivo = archivo;

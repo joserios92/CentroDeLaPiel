@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 @Entity
 public class Domicilio implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idDomicilio;
     @Basic
     private String calle;

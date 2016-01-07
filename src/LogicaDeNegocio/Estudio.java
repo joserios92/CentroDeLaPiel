@@ -2,23 +2,28 @@
 package LogicaDeNegocio;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 @Entity
 public class Estudio implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idEstudio;
     @Basic
     private String comentario;
     @Basic
-    private String fecha;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Calendar fecha;
     @OneToOne
     private Paciente unPaciente;
     @OneToOne
@@ -30,9 +35,8 @@ public class Estudio implements Serializable{
     public Estudio() {
     }
 
-    public Estudio(Paciente unPaciente, int idEstudio, String comentario, String fecha) {
+    public Estudio(Paciente unPaciente,String comentario, Calendar fecha) {
         this.unPaciente = unPaciente;
-        this.idEstudio = idEstudio;
         this.comentario = comentario;
         this.fecha = fecha;
     }
@@ -77,12 +81,11 @@ public class Estudio implements Serializable{
         this.comentario = comentario;
     }
 
-    public String getFecha() {
+    public Calendar getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Calendar fecha) {
         this.fecha = fecha;
     }
-    
 }

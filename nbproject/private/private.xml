@@ -4,13 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Dell/Documents/NetBeansProjects/CentroDeLaPiel/src/LogicaDeNegocio/Agenda.java</file>
-            <file>file:/C:/Users/Dell/Documents/NetBeansProjects/CentroDeLaPiel/src/Persistencia/ControladoraPersistencia.java</file>
-            <file>file:/C:/Users/Dell/Documents/NetBeansProjects/CentroDeLaPiel/src/LogicaDeNegocio/EstadoTurno.java</file>
+            <file>file:/C:/Users/Dell/Documents/NetBeansProjects/CentroDeLaPiel/src/Visual/CrearAgenda.java</file>
+            <file>file:/C:/Users/Dell/Documents/NetBeansProjects/CentroDeLaPiel/src/Visual/AltaPaciente.java</file>
             <file>file:/C:/Users/Dell/Documents/NetBeansProjects/CentroDeLaPiel/src/Visual/ControladoraVisual.java</file>
-            <file>file:/C:/Users/Dell/Documents/NetBeansProjects/CentroDeLaPiel/src/LogicaDeNegocio/Turno.java</file>
+            <file>file:/C:/Users/Dell/Documents/NetBeansProjects/CentroDeLaPiel/src/LogicaDeNegocio/TipoEstudio.java</file>
+            <file>file:/C:/Users/Dell/Documents/NetBeansProjects/CentroDeLaPiel/src/Visual/CrearEstadoTurno.java</file>
             <file>file:/C:/Users/Dell/Documents/NetBeansProjects/CentroDeLaPiel/src/LogicaDeNegocio/Centro.java</file>
-            <file>file:/C:/Users/Dell/Documents/NetBeansProjects/CentroDeLaPiel/src/LogicaDeNegocio/TipoDocumento.java</file>
-            <file>file:/C:/Users/Dell/Documents/NetBeansProjects/CentroDeLaPiel/src/LogicaDeNegocio/PlantillaTurno.java</file>
         </group>
     </open-files>
 </project-private>

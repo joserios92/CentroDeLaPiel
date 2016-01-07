@@ -4,12 +4,14 @@ package LogicaDeNegocio;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
 public class Localidad implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idLocalidad;
     @Basic
     private String nombreLocalidad;
@@ -19,8 +21,7 @@ public class Localidad implements Serializable{
     public Localidad() {
     }
 
-    public Localidad(int idLocalidad, String nombreLocalidad, Provincia unaProvincia) {
-        this.idLocalidad = idLocalidad;
+    public Localidad(String nombreLocalidad, Provincia unaProvincia) {
         this.nombreLocalidad = nombreLocalidad;
         this.unaProvincia = unaProvincia;
     }

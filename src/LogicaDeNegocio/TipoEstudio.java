@@ -5,11 +5,13 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class TipoEstudio implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idTipoEstudio;
     @Basic
     private String nombreEstudio;
@@ -19,8 +21,7 @@ public class TipoEstudio implements Serializable{
     public TipoEstudio() {
     }
 
-    public TipoEstudio(int idTipoEstudio, String nombreEstudio, int codigoNomenclador) {
-        this.idTipoEstudio = idTipoEstudio;
+    public TipoEstudio(String nombreEstudio, int codigoNomenclador) {
         this.nombreEstudio = nombreEstudio;
         this.codigoNomenclador = codigoNomenclador;
     }

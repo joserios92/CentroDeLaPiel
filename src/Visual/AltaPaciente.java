@@ -7,6 +7,7 @@ import LogicaDeNegocio.Paciente;
 import LogicaDeNegocio.Pais;
 import LogicaDeNegocio.Provincia;
 import LogicaDeNegocio.TipoDocumento;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -474,7 +475,7 @@ public class AltaPaciente extends javax.swing.JFrame {
             if (unD!=null) {
                 String nombre = TXTNombre.getText();
                 String apellido = TXTApellido.getText();
-                String fechaNac = dateCMBFechaNacimiento.getText();
+                Calendar fechaNac = dateCMBFechaNacimiento.getSelectedDate();
                 String sexo = null;
                 if (jRMasculino.isSelected()) {
                     sexo="Masculino";

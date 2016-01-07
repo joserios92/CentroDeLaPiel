@@ -1,27 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Persistencia;
 
+import java.io.Serializable;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import LogicaDeNegocio.Localidad;
 import LogicaDeNegocio.Provincia;
 import Persistencia.exceptions.NonexistentEntityException;
-import Persistencia.exceptions.PreexistingEntityException;
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
-/**
- *
- * @author Dell
- */
 public class ProvinciaJpaController implements Serializable {
 
     public ProvinciaJpaController() {
@@ -37,18 +30,31 @@ public class ProvinciaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Provincia provincia) throws PreexistingEntityException, Exception {
+    public void create(Provincia provincia) {
+        if (provincia.getLocalidades() == null) {
+            provincia.setLocalidades(new ArrayList<Localidad>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(provincia);
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findProvincia(provincia.getIdProvincia()) != null) {
-                throw new PreexistingEntityException("Provincia " + provincia + " already exists.", ex);
+            List<Localidad> attachedLocalidades = new ArrayList<Localidad>();
+            for (Localidad localidadesLocalidadToAttach : provincia.getLocalidades()) {
+                localidadesLocalidadToAttach = em.getReference(localidadesLocalidadToAttach.getClass(), localidadesLocalidadToAttach.getIdLocalidad());
+                attachedLocalidades.add(localidadesLocalidadToAttach);
             }
-            throw ex;
+            provincia.setLocalidades(attachedLocalidades);
+            em.persist(provincia);
+            for (Localidad localidadesLocalidad : provincia.getLocalidades()) {
+                Provincia oldUnaProvinciaOfLocalidadesLocalidad = localidadesLocalidad.getUnaProvincia();
+                localidadesLocalidad.setUnaProvincia(provincia);
+                localidadesLocalidad = em.merge(localidadesLocalidad);
+                if (oldUnaProvinciaOfLocalidadesLocalidad != null) {
+                    oldUnaProvinciaOfLocalidadesLocalidad.getLocalidades().remove(localidadesLocalidad);
+                    oldUnaProvinciaOfLocalidadesLocalidad = em.merge(oldUnaProvinciaOfLocalidadesLocalidad);
+                }
+            }
+            em.getTransaction().commit();
         } finally {
             if (em != null) {
                 em.close();
@@ -61,7 +67,34 @@ public class ProvinciaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Provincia persistentProvincia = em.find(Provincia.class, provincia.getIdProvincia());
+            List<Localidad> localidadesOld = persistentProvincia.getLocalidades();
+            List<Localidad> localidadesNew = provincia.getLocalidades();
+            List<Localidad> attachedLocalidadesNew = new ArrayList<Localidad>();
+            for (Localidad localidadesNewLocalidadToAttach : localidadesNew) {
+                localidadesNewLocalidadToAttach = em.getReference(localidadesNewLocalidadToAttach.getClass(), localidadesNewLocalidadToAttach.getIdLocalidad());
+                attachedLocalidadesNew.add(localidadesNewLocalidadToAttach);
+            }
+            localidadesNew = attachedLocalidadesNew;
+            provincia.setLocalidades(localidadesNew);
             provincia = em.merge(provincia);
+            for (Localidad localidadesOldLocalidad : localidadesOld) {
+                if (!localidadesNew.contains(localidadesOldLocalidad)) {
+                    localidadesOldLocalidad.setUnaProvincia(null);
+                    localidadesOldLocalidad = em.merge(localidadesOldLocalidad);
+                }
+            }
+            for (Localidad localidadesNewLocalidad : localidadesNew) {
+                if (!localidadesOld.contains(localidadesNewLocalidad)) {
+                    Provincia oldUnaProvinciaOfLocalidadesNewLocalidad = localidadesNewLocalidad.getUnaProvincia();
+                    localidadesNewLocalidad.setUnaProvincia(provincia);
+                    localidadesNewLocalidad = em.merge(localidadesNewLocalidad);
+                    if (oldUnaProvinciaOfLocalidadesNewLocalidad != null && !oldUnaProvinciaOfLocalidadesNewLocalidad.equals(provincia)) {
+                        oldUnaProvinciaOfLocalidadesNewLocalidad.getLocalidades().remove(localidadesNewLocalidad);
+                        oldUnaProvinciaOfLocalidadesNewLocalidad = em.merge(oldUnaProvinciaOfLocalidadesNewLocalidad);
+                    }
+                }
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -90,6 +123,11 @@ public class ProvinciaJpaController implements Serializable {
                 provincia.getIdProvincia();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The provincia with id " + id + " no longer exists.", enfe);
+            }
+            List<Localidad> localidades = provincia.getLocalidades();
+            for (Localidad localidadesLocalidad : localidades) {
+                localidadesLocalidad.setUnaProvincia(null);
+                localidadesLocalidad = em.merge(localidadesLocalidad);
             }
             em.remove(provincia);
             em.getTransaction().commit();

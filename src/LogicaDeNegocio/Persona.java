@@ -2,20 +2,25 @@
 package LogicaDeNegocio;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 @Entity
 public class Persona implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idPersona;
     @Basic
     private String nombre;
     @Basic
     private String apellido;
     @Basic
-    private String fechaNac;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Calendar fechaNac;
     @Basic
     private String sexo;
     @Basic
@@ -34,7 +39,7 @@ public class Persona implements Serializable{
     public Persona() {
     }
 
-    public Persona(String nombre, String apellido, String fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) {
+    public Persona(String nombre, String apellido, Calendar fechaNac, String sexo, long telefonoFijo, long telefonoCelular, long documento, String eMail, TipoDocumento unTipoDocumento, Domicilio unDomicilio) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNac = fechaNac;
@@ -72,11 +77,11 @@ public class Persona implements Serializable{
         this.apellido = apellido;
     }
 
-    public String getFechaNac() {
+    public Calendar getFechaNac() {
         return fechaNac;
     }
 
-    public void setFechaNac(String fechaNac) {
+    public void setFechaNac(Calendar fechaNac) {
         this.fechaNac = fechaNac;
     }
 

@@ -6,12 +6,14 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
 public class ObraSocial implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idObraSocial;
     @Basic
     private String nombreObraSocial;
@@ -22,8 +24,7 @@ public class ObraSocial implements Serializable{
     public ObraSocial() {
     }
 
-    public ObraSocial(int idObraSocial, String nombreObraSocial) {
-        this.idObraSocial = idObraSocial;
+    public ObraSocial(String nombreObraSocial) {
         this.nombreObraSocial = nombreObraSocial;
     }
 

@@ -10,12 +10,14 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 @Entity
 public class Provincia implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idProvincia;
     @Basic
     private String nombreProvincia;
@@ -25,8 +27,7 @@ public class Provincia implements Serializable{
     public Provincia() {
     }
 
-    public Provincia(int idProvincia, String nombreProvincia) {
-        this.idProvincia = idProvincia;
+    public Provincia(String nombreProvincia) {
         this.nombreProvincia = nombreProvincia;
     }
 

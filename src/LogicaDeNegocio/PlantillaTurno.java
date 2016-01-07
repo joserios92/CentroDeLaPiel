@@ -6,29 +6,34 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 @Entity
 public class PlantillaTurno implements Serializable{
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idPlantilla;
     @Basic
     @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar fecha;
     @Basic
-    private int duracion;
+    private float duracion;
     @ManyToOne
     private Agenda unaAgenda;
+    @OneToMany
+    private List<Turno> turnos;
     
   public PlantillaTurno() {
     }
 
-    public PlantillaTurno(Calendar fecha, int duracion, Agenda unaAgenda) {
+    public PlantillaTurno(Calendar fecha, float duracion, Agenda unaAgenda, List<Turno> turnos) {
         this.fecha = fecha;
         this.duracion = duracion;
         this.unaAgenda = unaAgenda;
+        this.turnos = turnos;
     }
 
     public int getIdPlantilla() {
@@ -47,11 +52,11 @@ public class PlantillaTurno implements Serializable{
         this.fecha = fecha;
     }
 
-    public int getDuracion() {
+    public float getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(int duracion) {
+    public void setDuracion(float duracion) {
         this.duracion = duracion;
     }
 
@@ -61,6 +66,14 @@ public class PlantillaTurno implements Serializable{
 
     public void setUnaAgenda(Agenda unaAgenda) {
         this.unaAgenda = unaAgenda;
+    }
+
+    public List<Turno> getTurnos() {
+        return turnos;
+    }
+
+    public void setTurnos(List<Turno> turnos) {
+        this.turnos = turnos;
     }
 
 }
