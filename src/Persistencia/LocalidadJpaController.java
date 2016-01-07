@@ -1,27 +1,34 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Persistencia;
 
 import LogicaDeNegocio.Localidad;
-import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import LogicaDeNegocio.Provincia;
 import Persistencia.exceptions.NonexistentEntityException;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
+/**
+ *
+ * @author Alberto
+ */
 public class LocalidadJpaController implements Serializable {
-
-    public LocalidadJpaController() {
-        emf = Persistence.createEntityManagerFactory("CentroDeLaPielPU");
-    }
 
     public LocalidadJpaController(EntityManagerFactory emf) {
         this.emf = emf;
+    }
+
+    public LocalidadJpaController() {
+        emf = Persistence.createEntityManagerFactory("CentroDeLaPielPU");
     }
     private EntityManagerFactory emf = null;
 
@@ -34,16 +41,7 @@ public class LocalidadJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Provincia unaProvincia = localidad.getUnaProvincia();
-            if (unaProvincia != null) {
-                unaProvincia = em.getReference(unaProvincia.getClass(), unaProvincia.getIdProvincia());
-                localidad.setUnaProvincia(unaProvincia);
-            }
             em.persist(localidad);
-            if (unaProvincia != null) {
-                unaProvincia.getLocalidades().add(localidad);
-                unaProvincia = em.merge(unaProvincia);
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -57,22 +55,7 @@ public class LocalidadJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Localidad persistentLocalidad = em.find(Localidad.class, localidad.getIdLocalidad());
-            Provincia unaProvinciaOld = persistentLocalidad.getUnaProvincia();
-            Provincia unaProvinciaNew = localidad.getUnaProvincia();
-            if (unaProvinciaNew != null) {
-                unaProvinciaNew = em.getReference(unaProvinciaNew.getClass(), unaProvinciaNew.getIdProvincia());
-                localidad.setUnaProvincia(unaProvinciaNew);
-            }
             localidad = em.merge(localidad);
-            if (unaProvinciaOld != null && !unaProvinciaOld.equals(unaProvinciaNew)) {
-                unaProvinciaOld.getLocalidades().remove(localidad);
-                unaProvinciaOld = em.merge(unaProvinciaOld);
-            }
-            if (unaProvinciaNew != null && !unaProvinciaNew.equals(unaProvinciaOld)) {
-                unaProvinciaNew.getLocalidades().add(localidad);
-                unaProvinciaNew = em.merge(unaProvinciaNew);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -101,11 +84,6 @@ public class LocalidadJpaController implements Serializable {
                 localidad.getIdLocalidad();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The localidad with id " + id + " no longer exists.", enfe);
-            }
-            Provincia unaProvincia = localidad.getUnaProvincia();
-            if (unaProvincia != null) {
-                unaProvincia.getLocalidades().remove(localidad);
-                unaProvincia = em.merge(unaProvincia);
             }
             em.remove(localidad);
             em.getTransaction().commit();

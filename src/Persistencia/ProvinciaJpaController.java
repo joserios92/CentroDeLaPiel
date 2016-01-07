@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Persistencia;
 
 import java.io.Serializable;
@@ -6,20 +10,19 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import LogicaDeNegocio.Localidad;
+import LogicaDeNegocio.Pais;
 import LogicaDeNegocio.Provincia;
 import Persistencia.exceptions.NonexistentEntityException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+/**
+ *
+ * @author Alberto
+ */
 public class ProvinciaJpaController implements Serializable {
-
-    public ProvinciaJpaController() {
-        emf = Persistence.createEntityManagerFactory("CentroDeLaPielPU");
-    }
 
     public ProvinciaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
@@ -30,29 +33,24 @@ public class ProvinciaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
+    public ProvinciaJpaController() {
+        emf = Persistence.createEntityManagerFactory("CentroDeLaPielPU");
+    }
+
     public void create(Provincia provincia) {
-        if (provincia.getLocalidades() == null) {
-            provincia.setLocalidades(new ArrayList<Localidad>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Localidad> attachedLocalidades = new ArrayList<Localidad>();
-            for (Localidad localidadesLocalidadToAttach : provincia.getLocalidades()) {
-                localidadesLocalidadToAttach = em.getReference(localidadesLocalidadToAttach.getClass(), localidadesLocalidadToAttach.getIdLocalidad());
-                attachedLocalidades.add(localidadesLocalidadToAttach);
+            Pais unPais = provincia.getUnPais();
+            if (unPais != null) {
+                unPais = em.getReference(unPais.getClass(), unPais.getIdPais());
+                provincia.setUnPais(unPais);
             }
-            provincia.setLocalidades(attachedLocalidades);
             em.persist(provincia);
-            for (Localidad localidadesLocalidad : provincia.getLocalidades()) {
-                Provincia oldUnaProvinciaOfLocalidadesLocalidad = localidadesLocalidad.getUnaProvincia();
-                localidadesLocalidad.setUnaProvincia(provincia);
-                localidadesLocalidad = em.merge(localidadesLocalidad);
-                if (oldUnaProvinciaOfLocalidadesLocalidad != null) {
-                    oldUnaProvinciaOfLocalidadesLocalidad.getLocalidades().remove(localidadesLocalidad);
-                    oldUnaProvinciaOfLocalidadesLocalidad = em.merge(oldUnaProvinciaOfLocalidadesLocalidad);
-                }
+            if (unPais != null) {
+                unPais.getProvincias().add(provincia);
+                unPais = em.merge(unPais);
             }
             em.getTransaction().commit();
         } finally {
@@ -68,32 +66,20 @@ public class ProvinciaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Provincia persistentProvincia = em.find(Provincia.class, provincia.getIdProvincia());
-            List<Localidad> localidadesOld = persistentProvincia.getLocalidades();
-            List<Localidad> localidadesNew = provincia.getLocalidades();
-            List<Localidad> attachedLocalidadesNew = new ArrayList<Localidad>();
-            for (Localidad localidadesNewLocalidadToAttach : localidadesNew) {
-                localidadesNewLocalidadToAttach = em.getReference(localidadesNewLocalidadToAttach.getClass(), localidadesNewLocalidadToAttach.getIdLocalidad());
-                attachedLocalidadesNew.add(localidadesNewLocalidadToAttach);
+            Pais unPaisOld = persistentProvincia.getUnPais();
+            Pais unPaisNew = provincia.getUnPais();
+            if (unPaisNew != null) {
+                unPaisNew = em.getReference(unPaisNew.getClass(), unPaisNew.getIdPais());
+                provincia.setUnPais(unPaisNew);
             }
-            localidadesNew = attachedLocalidadesNew;
-            provincia.setLocalidades(localidadesNew);
             provincia = em.merge(provincia);
-            for (Localidad localidadesOldLocalidad : localidadesOld) {
-                if (!localidadesNew.contains(localidadesOldLocalidad)) {
-                    localidadesOldLocalidad.setUnaProvincia(null);
-                    localidadesOldLocalidad = em.merge(localidadesOldLocalidad);
-                }
+            if (unPaisOld != null && !unPaisOld.equals(unPaisNew)) {
+                unPaisOld.getProvincias().remove(provincia);
+                unPaisOld = em.merge(unPaisOld);
             }
-            for (Localidad localidadesNewLocalidad : localidadesNew) {
-                if (!localidadesOld.contains(localidadesNewLocalidad)) {
-                    Provincia oldUnaProvinciaOfLocalidadesNewLocalidad = localidadesNewLocalidad.getUnaProvincia();
-                    localidadesNewLocalidad.setUnaProvincia(provincia);
-                    localidadesNewLocalidad = em.merge(localidadesNewLocalidad);
-                    if (oldUnaProvinciaOfLocalidadesNewLocalidad != null && !oldUnaProvinciaOfLocalidadesNewLocalidad.equals(provincia)) {
-                        oldUnaProvinciaOfLocalidadesNewLocalidad.getLocalidades().remove(localidadesNewLocalidad);
-                        oldUnaProvinciaOfLocalidadesNewLocalidad = em.merge(oldUnaProvinciaOfLocalidadesNewLocalidad);
-                    }
-                }
+            if (unPaisNew != null && !unPaisNew.equals(unPaisOld)) {
+                unPaisNew.getProvincias().add(provincia);
+                unPaisNew = em.merge(unPaisNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -124,10 +110,10 @@ public class ProvinciaJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The provincia with id " + id + " no longer exists.", enfe);
             }
-            List<Localidad> localidades = provincia.getLocalidades();
-            for (Localidad localidadesLocalidad : localidades) {
-                localidadesLocalidad.setUnaProvincia(null);
-                localidadesLocalidad = em.merge(localidadesLocalidad);
+            Pais unPais = provincia.getUnPais();
+            if (unPais != null) {
+                unPais.getProvincias().remove(provincia);
+                unPais = em.merge(unPais);
             }
             em.remove(provincia);
             em.getTransaction().commit();
