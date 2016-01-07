@@ -60,10 +60,10 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                              <Component id="BtnValidarUsuario" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <Component id="BtnValidarUsuario" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="BtnSalir" min="-2" max="-2" attributes="0"/>
+                              <Component id="BtnSalir" min="-2" pref="76" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -107,9 +107,6 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="BtnSalir">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Dell\Documents\NetBeansProjects\CentroDeLaPiel\src\Icons\decline.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
               <Events>
@@ -118,9 +115,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="BtnValidarUsuario">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Dell\Documents\NetBeansProjects\CentroDeLaPiel\src\Icons\accept.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Entrar"/>
               </Properties>
               <Events>
