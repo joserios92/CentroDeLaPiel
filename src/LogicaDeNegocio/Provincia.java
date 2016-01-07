@@ -1,28 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package LogicaDeNegocio;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 @Entity
 public class Provincia implements Serializable{
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int idProvincia;
     @Basic
     private String nombreProvincia;
-    @OneToMany
-    private List<Localidad> localidades = new LinkedList();
+    @OneToOne
+    private Pais unPais;
     
     public Provincia() {
     }
@@ -47,12 +34,18 @@ public class Provincia implements Serializable{
         this.nombreProvincia = nombreProvincia;
     }
 
-    public List<Localidad> getLocalidades() {
-        return localidades;
+    public void setUnPais(Pais unPais) {
+        this.unPais = unPais;
     }
 
-    public void setLocalidades(List<Localidad> localidades) {
-        this.localidades = localidades;
+    public Pais getUnPais() {
+        return unPais;
     }
+
+    public Provincia(String nombreProvincia, Pais unPais) {
+        this.nombreProvincia = nombreProvincia;
+        this.unPais = unPais;
+    }
+
     
 }
